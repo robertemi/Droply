@@ -1,0 +1,150 @@
+/* auth.css */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font modern */
+    background-color: #f0f8ff; /* Fundal general foarte deschis, poate un alb-albăstrui */
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.auth-form-container {
+    background-color: #fff;
+    padding: 30px 40px; /* Mărit puțin padding-ul */
+    border-radius: 10px; /* Rotunjire mai pronunțată */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Umbră mai definită */
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-form-container h2 {
+    text-align: center;
+    margin-bottom: 25px; /* Spațiu mai mare sub titlu */
+    color: #008080; /* Turcoaz pentru titlu */
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Spațiu mai mare pentru etichetă */
+    font-weight: 500; /* Font puțin mai subțire pentru etichetă */
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px; /* Padding mai generos */
+    border: 1px solid #ccc; /* Bordură puțin mai vizibilă */
+    border-radius: 6px; /* Rotunjire mai pronunțată pentru input-uri */
+    box-sizing: border-box; /* Important to include padding and border in the element's total width and height */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Tranziție pentru focus */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #40E0D0; /* Turcoaz pentru bordura la focus */
+    box-shadow: 0 0 0 0.2rem rgba(64, 224, 208, 0.25); /* Umbră subtilă turcoaz la focus */
+    outline: none; /* Eliminăm outline-ul implicit */
+}
+
+.btn {
+    background-color: #40E0D0; /* Turcoaz pentru buton */
+    color: white;
+    padding: 12px 15px; /* Padding ajustat */
+    border: none;
+    border-radius: 6px; /* Rotunjire mai pronunțată */
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase; /* Text cu majuscule pentru buton */
+    letter-spacing: 0.5px; /* Spațiere între litere */
+}
+
+.btn:hover {
+    background-color: #36c0b0; /* O nuanță de turcoaz puțin mai închisă la hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Umbră la hover */
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-switch a {
+    color: #90EE90; /* Verde deschis pentru link-ul de switch */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+    color: #7ccd7c; /* Verde deschis puțin mai închis la hover */
+}
+
+/* Header styles for auth pages */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1em 0; /* Ajustat padding-ul header-ului */
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%; /* Lățime mai mare pentru nav */
+    margin: auto;
+}
+
+header .logo a {
+    font-size: 1.8em; /* Mărit logo-ul */
+    font-weight: bold;
+    color: #fff; /* Logo alb */
+    text-decoration: none;
+}
+
+header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: #f0f8ff; /* O culoare deschisă pentru link-urile din nav */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: rgba(255,255,255,0.1); /* Efect subtil la hover */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
