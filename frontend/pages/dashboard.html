@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Droply - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css"> <!-- General styles -->
+    <link rel="stylesheet" href="../css/dashboard.css"> <!-- Dashboard specific styles -->
+</head>
+<body>
+    <header>
+        <nav>
+            <button class="menu-toggle" id="menuToggle">&#9776;</button> <!-- Hamburger Icon -->
+            <a href="../index.html" class="logo">Droply</a> <!-- Made logo an anchor -->
+            <ul id="navLinks">
+                <li><a href="../index.html">Home</a></li>
+                <!-- Links will be updated by JS based on auth state -->
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Menu</h2>
+            <!-- Sidebar links will be populated dynamically or based on user role -->
+            <ul id="sidebarMenu">
+                <!-- Example: <li><a href="#profile">Profile</a></li> -->
+            </ul>
+        </aside>
+
+        <section class="content-area">
+            <h1>Dashboard</h1>
+            <p>Welcome to your Droply dashboard. Select an option from the menu to get started.</p>
+
+            <!-- Placeholder sections for different roles, to be shown/hidden dynamically -->
+            <div id="companyDashboard" class="role-dashboard" style="display:none;">
+                <h2>Company Dashboard</h2>
+                <ul>
+                    <li><a href="#createOrder">Create and Manage Orders</a></li>
+                    <li><a href="#orderHistory">Order History</a></li>
+                    <li><a href="#notifications">Notifications</a></li>
+                </ul>
+            </div>
+
+            <div id="delivererDashboard" class="role-dashboard" style="display:none;">
+                <h2>Deliverer Dashboard</h2>
+                <ul>
+                    <li><a href="#availableOrders">View Available Orders</a></li>
+                    <li><a href="#acceptedOrders">Accepted Orders</a></li>
+                    <li><a href="#deliveryTracking">Track Deliveries</a></li>
+                    <li><a href="#virtualWallet">Virtual Wallet / Payments</a></li>
+                </ul>
+            </div>
+
+            <div id="adminDashboard" class="role-dashboard" style="display:none;">
+                <h2>Admin Dashboard</h2>
+                <ul>
+                    <li><a href="#manageUsers">View and Manage Users</a></li>
+                    <li><a href="#moderateOrders">Moderate Orders</a></li>
+                    <li><a href="#verifyDocuments">Verify Deliverer Documents</a></li>
+                    <li><a href="#platformStats">Platform Statistics</a></li>
+                    <li><a href="#userSupport">User Support & Feedback</a></li>
+                    <li><a href="#manageFees">Manage Platform Fees</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Droply. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/main.js"></script> <!-- General scripts -->
+    <script src="../js/dashboard.js"></script> <!-- Dashboard specific scripts -->
+    <script>
+        // Small script to update nav links based on a mock auth state
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.getElementById('navLinks');
+            const userRole = localStorage.getItem('userRole'); // Check mock auth state
+
+            // Clear existing li elements except for Home
+            const homeLink = navLinks.querySelector('li a[href="../index.html"]');
+            navLinks.innerHTML = ''; // Clear all
+            if (homeLink) {
+                const homeLi = document.createElement('li');
+                homeLi.appendChild(homeLink);
+                navLinks.appendChild(homeLi); // Add Home link back
+            }
+
+
+            if (userRole) { // "Logged in"
+                const logoutLi = document.createElement('li');
+                const logoutLink = document.createElement('a');
+                logoutLink.href = "#";
+                logoutLink.textContent = 'Logout';
+                // logoutLink.id = 'logoutButton'; // ID is on the button in dashboard.js, ensure consistency if needed elsewhere
+                logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('userRole'); // Mock logout
+                    localStorage.removeItem('selectedUserType'); // Clear selected type on logout
+                    alert('Logged out successfully (mock).');
+                    window.location.href = '../pages/login.html';
+                });
+                logoutLi.appendChild(logoutLink);
+                navLinks.appendChild(logoutLi);
+            } else { // "Logged out"
+                const loginLi = document.createElement('li');
+                loginLi.innerHTML = '<a href="login.html">Login</a>';
+                navLinks.appendChild(loginLi);
+
+                const registerLi = document.createElement('li');
+                registerLi.innerHTML = '<a href="register.html">Register</a>';
+                navLinks.appendChild(registerLi);
+            }
+
+            // Hamburger menu toggle logic
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            // const dashboardContainer = document.querySelector('.dashboard-container'); // Not strictly needed for overlay sidebar
+
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                    // if (dashboardContainer) {
+                    //    dashboardContainer.classList.toggle('sidebar-open'); // For push effect
+                    // }
+                });
+            }
+
+            // Active sidebar link based on hash
+            const currentHash = window.location.hash;
+            const sidebarLinks = sidebar.querySelectorAll('ul li a');
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === currentHash) {
+                    link.classList.add('active-link');
+                }
+                link.addEventListener('click', function() {
+                    sidebarLinks.forEach(l => l.classList.remove('active-link'));
+                    this.classList.add('active-link');
+                    if (window.innerWidth <= 768 && sidebar.classList.contains('open')) { // Close sidebar on mobile after click
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

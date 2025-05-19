@@ -1,0 +1,248 @@
+/* Basic styles for dashboard layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font modern preluat din auth.css */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f8ff; /* Fundal general similar cu auth.css */
+}
+
+header {
+    background-color: #008080; /* Turcoaz pentru header-ul dashboard-ului */
+    color: white;
+    padding: 1em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex; /* Added for menu toggle alignment */
+    align-items: center; /* Added for menu toggle alignment */
+    justify-content: space-between; /* Ensures logo and navLinks are spaced out */
+}
+
+header nav {
+    display: flex; /* Ensure nav itself is flex container */
+    align-items: center; /* Align items vertically */
+    width: 100%; /* Nav takes full width of header */
+    justify-content: space-between; /* Distribute space */
+}
+
+header .logo {
+    font-size: 1.8em; /* Mărit logo-ul, similar cu auth.css */
+    font-weight: bold;
+    color: white; /* Ensure logo text is white */
+    text-decoration: none; /* Remove underline if it's a link */
+}
+
+header nav ul#navLinks { /* Target specific ul */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Align nav links vertically */
+}
+
+header nav ul#navLinks li {
+    margin-left: 20px;
+}
+
+header nav ul#navLinks li a {
+    color: #f0f8ff; /* Culoare deschisă pentru link-uri */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header nav ul#navLinks li a:hover,
+header nav ul#navLinks li a.active { /* Style for active link */
+    background-color: #40E0D0; /* Turcoaz mai deschis pentru hover/activ */
+    color: #fff;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-grow: 1;
+    /* transition: margin-left .5s; Removed for simpler toggle */
+}
+
+.sidebar {
+    width: 260px; /* Lățime puțin mai mare */
+    background-color: #ffffff; /* Sidebar alb */
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease; /* Changed from width/left for smoother animation */
+    transform: translateX(0);
+    z-index: 999; /* Ensure sidebar is above content but below header if fixed */
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    color: #008080; /* Turcoaz pentru titlul meniului */
+    font-size: 1.4em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333; /* Culoare text link-uri sidebar */
+    border-radius: 6px;
+    margin-bottom: 5px; /* Spațiu între elementele meniului */
+    transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active-link { /* Class for active sidebar link */
+    background-color: #40E0D0; /* Turcoaz pentru hover/activ */
+    color: white;
+    font-weight: 500;
+    padding-left: 20px; /* Indent active link slightly */
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 25px;
+    background-color: #f4f8fa; /* Un gri-albăstrui foarte deschis pentru zona de conținut */
+    transition: margin-left 0.3s ease; /* For when sidebar pushes content */
+}
+
+.content-area h1 {
+    color: #008080; /* Turcoaz pentru titlul principal al conținutului */
+    margin-top: 0;
+    border-bottom: 2px solid #40E0D0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.role-dashboard {
+    margin-top: 20px;
+    padding: 20px;
+    border: none; /* Eliminăm bordura */
+    border-radius: 8px;
+    background-color: #ffffff; /* Fundal alb pentru cardurile de rol */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.role-dashboard h2 {
+    margin-top: 0;
+    color: #36c0b0; /* O nuanță de turcoaz mai deschisă pentru subtitluri */
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+.role-dashboard ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.role-dashboard ul li {
+    margin-bottom: 10px;
+}
+
+.role-dashboard ul li a {
+    text-decoration: none;
+    color: #008080; /* Turcoaz pentru link-urile din carduri */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.role-dashboard ul li a:hover {
+    color: #90EE90; /* Verde deschis la hover */
+    text-decoration: underline;
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    /* margin-top: auto; Ensure footer is at the bottom if content is short, handled by body flex */
+}
+
+/* --- Responsive Design --- */
+
+/* Hamburger Menu Icon (initially hidden on larger screens) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px; /* Slightly larger icon */
+    cursor: pointer;
+    padding: 0 10px; /* Padding around icon */
+    margin-right: 15px; /* Space between icon and logo/nav links */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0; /* Start on screen for transform */
+        transform: translateX(-100%); /* Initially hidden off-screen */
+        top: 0; /* Align with top of viewport */
+        height: 100vh; /* Full viewport height */
+        z-index: 1000; /* Ensure sidebar is above other content */
+        padding-top: 60px; /* Space for a fixed header if needed, or adjust if header is not fixed */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Show sidebar */
+    }
+
+    .content-area {
+        margin-left: 0 !important; /* Content takes full width when sidebar is hidden or overlayed */
+        width: 100%;
+    }
+    
+    .dashboard-container.sidebar-open .content-area {
+        /* Optional: Add a slight push if sidebar is not an overlay */
+        /* margin-left: 260px; */ 
+    }
+
+
+    .menu-toggle {
+        display: block; /* Show hamburger icon */
+        order: -1; /* Place hamburger before logo if nav is flex container */
+    }
+
+    header nav {
+        /* Adjust nav for hamburger */
+    }
+    
+    header nav ul#navLinks {
+        /* Optionally hide or change display of these links on small screens */
+        /* For now, they remain, but might get crowded */
+    }
+}
+
+@media (max-width: 480px) {
+    header .logo {
+        font-size: 1.5em;
+    }
+    header nav ul#navLinks li a {
+        padding: 6px 8px;
+        font-size: 0.9em;
+    }
+    .content-area h1 {
+        font-size: 1.8em;
+    }
+    .role-dashboard h2 {
+        font-size: 1.2em;
+    }
+    .sidebar {
+        width: 240px; /* Sidebar mai îngust pe mobil */
+         padding-top: 50px;
+    }
+     .sidebar.open {
+        transform: translateX(0);
+    }
+}
