@@ -34,13 +34,11 @@ Suport și feedback utilizatori
 Gestionare taxe/comisioane de platformă
 
 Frontend:
-Pentru utilizatori: React / Next.js
+Pentru utilizatori: HTML, CSS, JavaScript
 
-Design responsive: Tailwind CSS
+Design responsive: CSS (manual sau cu un micro-framework)
 
-Hărți & locații: Google Maps API 
-
-Notificări: Firebase Cloud Messaging
+Hărți & locații: Google Maps API
 
 Backend:
 Limbaj & Framework: Python (Flask)
