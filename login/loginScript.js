@@ -3,7 +3,6 @@ function handleSignIn(event) {
     const email = document.getElementById('userEmail').value;
     const password = document.getElementById('userPassword').value;
     
-    
     if (!email || !password) {
         document.getElementById('errorMessage').style.display = 'block';
         return; // Stop if fields are empty
