@@ -1,52 +1,45 @@
-// auth.js
+/**
+ * Authentication and user role management
+ * Handles login/logout and user role checks
+ */
+
+  /**
+   * Use for requiring login before accesing the dashboard
+   */
+
+// Check authentication state and redirect if needed
+// function checkAuthState() {
+//     const userRole = localStorage.getItem('userRole');
+//     const currentPage = window.location.pathname.split('/').pop();
+    
+//     // Redirect logic based on user role
+//     if (userRole === "deliverer" && !currentPage.includes('deliverer')) {
+//         window.location.href = '/frontend/pages/deliverer-dashboard.html';
+//     } else if (userRole === "admin" && !currentPage.includes('admin')) {
+//         window.location.href = '/frontend/pages/admin-dashboard.html';
+//     } else if (!userRole && !currentPage.includes('login') && !currentPage.includes('register')) {
+//         window.location.href = '/frontend/pages/login.html';
+//     }
+    
+//     return userRole;
+// }
+
+// Handle logout functionality
+function setupLogout() {
+    const logoutButtons = document.querySelectorAll('.logout-btn');
+    
+    logoutButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('selectedUserType');
+            window.location.href = '../pages/login.html';
+        });
+    });
+}
+
+// Initialize auth module
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            // Basic validation - actual validation and submission would involve backend
-            const email = loginForm.email.value;
-            const password = loginForm.password.value;
-
-            if (email && password) {
-                alert('Login form submitted (placeholder).');
-                // Here you would typically send data to a backend API
-                // For now, redirect to dashboard as if login was successful
-                // This is a placeholder and needs actual auth logic
-                localStorage.setItem('userRole', 'company'); // Mock login
-                window.location.href = 'dashboard.html';
-            } else {
-                alert('Please fill in all fields.');
-            }
-        });
-    }
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            // Basic validation
-            const username = registerForm.username.value;
-            const email = registerForm.email.value;
-            const password = registerForm.password.value;
-            const confirmPassword = registerForm.confirmPassword.value;
-            const userType = registerForm.userType.value;
-
-            if (!username || !email || !password || !confirmPassword || !userType) {
-                alert('Please fill in all fields.');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert('Passwords do not match.');
-                return;
-            }
-
-            alert(`Registration form submitted (placeholder) for ${userType}.`);
-            // Here you would typically send data to a backend API
-            // For now, redirect to login page
-            window.location.href = 'login.html';
-        });
-    }
+    checkAuthState();
+    setupLogout();
 });

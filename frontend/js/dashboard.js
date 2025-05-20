@@ -1,75 +1,83 @@
-// Dashboard specific JavaScript will go here
-// For example, logic to show/hide role-specific dashboards
-// and handle sidebar navigation.
+/**
+ * Dashboard-specific functionality
+ * Handles sidebar, navigation, and UI interactions
+ */
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Dashboard JS loaded');
+// Initialize dashboard
+function initDashboard() {
+    setupHamburgerMenu();
+    setupSidebarLinks();
+    updateNavLinks();
+}
 
-    // Placeholder: Logic to determine user role and show the correct dashboard
-    // This would typically involve checking a session or token
-    // For now, we can manually show one for testing, e.g., showCompanyDashboard();
-
-    function showCompanyDashboard() {
-        hideAllDashboards();
-        document.getElementById('companyDashboard').style.display = 'block';
-        populateSidebar(['Create Order', 'Order History', 'Notifications']);
-    }
-
-    function showDelivererDashboard() {
-        hideAllDashboards();
-        document.getElementById('delivererDashboard').style.display = 'block';
-        populateSidebar(['Available Orders', 'Accepted Orders', 'Track Deliveries', 'Virtual Wallet']);
-    }
-
-    function showAdminDashboard() {
-        hideAllDashboards();
-        document.getElementById('adminDashboard').style.display = 'block';
-        populateSidebar(['Manage Users', 'Moderate Orders', 'Verify Documents', 'Platform Stats', 'User Support', 'Manage Fees']);
-    }
-
-    function hideAllDashboards() {
-        document.getElementById('companyDashboard').style.display = 'none';
-        document.getElementById('delivererDashboard').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'none';
-    }
-
-    function populateSidebar(items) {
-        const menu = document.getElementById('sidebarMenu');
-        menu.innerHTML = ''; // Clear existing items
-        items.forEach(item => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = `#${item.toLowerCase().replace(/\s+/g, '-')}`;
-            a.textContent = item;
-            li.appendChild(a);
-            menu.appendChild(li);
+// Hamburger menu toggle for mobile
+function setupHamburgerMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
         });
     }
+}
 
-    // Example: Detect user role (replace with actual logic)
-    // You can change this to "deliverer" or "admin" to test other views
-    const userRole = "company"; 
+// Setup sidebar navigation links
+function setupSidebarLinks() {
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+    const currentPath = window.location.pathname;
+    
+    sidebarLinks.forEach(link => {
+        // Set active state
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active-link');
+        }
+        
+        // Click handler
+        link.addEventListener('click', function() {
+            sidebarLinks.forEach(l => l.classList.remove('active-link'));
+            this.classList.add('active-link');
+            
+            // Close sidebar on mobile after click
+            if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
+    });
+}
 
-    if (userRole === "company") {
-        showCompanyDashboard();
-    } else if (userRole === "deliverer") {
-        showDelivererDashboard();
-    } else if (userRole === "admin") {
-        showAdminDashboard();
+// Update navigation links based on auth state
+function updateNavLinks() {
+    const navLinks = document.getElementById('navLinks');
+    const userRole = localStorage.getItem('userRole');
+    const homeLink = navLinks.querySelector('li a[href="../index.html"]');
+    
+    // Clear existing links except Home
+    navLinks.innerHTML = '';
+    
+    if (homeLink) {
+        const homeLi = document.createElement('li');
+        homeLi.appendChild(homeLink);
+        navLinks.appendChild(homeLi);
+    }
+    
+    if (userRole) {
+        // User is logged in - show logout
+        const logoutLi = document.createElement('li');
+        logoutLi.innerHTML = '<a href="#" class="logout-btn">Logout</a>';
+        navLinks.appendChild(logoutLi);
     } else {
-        // Default view if role is unknown or not logged in
-        hideAllDashboards();
-        populateSidebar([]); // No specific menu
+        // User is logged out - show login/register
+        const loginLi = document.createElement('li');
+        loginLi.innerHTML = '<a href="login.html">Login</a>';
+        navLinks.appendChild(loginLi);
+        
+        const registerLi = document.createElement('li');
+        registerLi.innerHTML = '<a href="register.html">Register</a>';
+        navLinks.appendChild(registerLi);
     }
+}
 
-    // Logout functionality (placeholder)
-    const logoutButton = document.getElementById('logoutButton');
-    if(logoutButton) {
-        logoutButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            alert('Logout functionality to be implemented');
-            // Add actual logout logic here (e.g., clear session, redirect to login)
-            window.location.href = '../index.html';
-        });
-    }
-});
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initDashboard);
