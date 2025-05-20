@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications</title>
+    <title>Droply - Notifications</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/notifications.css">
 </head>
 <body>
-    <h1>Test</h1>
+
+    <main class="dashboard-container">
+        <section class="content-area">
+            <div class="notifications-header">
+                <h1>Notifications</h1>
+                <div class="notification-actions">
+                    <button id="markAllRead" class="btn-secondary">Mark All as Read</button>
+                    <button id="clearAll" class="btn-danger">Clear All</button>
+                </div>
+            </div>
+
+            <div class="notification-filters">
+                <div class="filter-group">
+                    <label><input type="radio" name="filter" value="all" checked> All</label>
+                    <label><input type="radio" name="filter" value="unread"> Unread</label>
+                    <label><input type="radio" name="filter" value="orders"> Orders</label>
+                    <label><input type="radio" name="filter" value="system"> System</label>
+                </div>
+            </div>
+
+            <div class="notifications-list">
+                <!-- Notification items will be populated by JavaScript -->
+                <div class="empty-state">
+                    <img src="../images/empty-notifications.svg" alt="No notifications">
+                    <p>No notifications yet</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Droply. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/notifications.js"></script>
 </body>
 </html>
