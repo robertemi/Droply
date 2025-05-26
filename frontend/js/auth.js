@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         driverRegisterForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = driverRegisterForm.name.value;
-            const vehicleType = driverRegisterForm.vehicleType.value;
-            const email = driverRegisterForm.email.value;
+            const vehicleType = driverRegisterForm.vehicle_type.value; // Changed to match form field name
+            const email = driverRegisterForm.courier_email.value; // Changed to match form field name
             const password = driverRegisterForm.password.value;
             const confirmPassword = driverRegisterForm.confirmPassword.value;
             const userType = 'deliverer';
@@ -183,10 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name,
-                    vehicleType,
-                    email,
-                    password,
+                    name: name,
+                    vehicle_type: vehicleType,
+                    courier_email: email,
+                    password: password
                 })
             })
             .then(response => {
@@ -204,6 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 // window.location.href = 'dashboard.html';
             });
         });
+        console.log('Submitting:', {
+    name: name,
+    vehicle_type: vehicleType,
+    courier_email: email,
+    password: password
+});
     }
 
     // Dynamic auth links in header (e.g., on login/register pages themselves)
