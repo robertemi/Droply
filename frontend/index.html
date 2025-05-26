@@ -2,17 +2,173 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name_="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Droply</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Droply - Your Delivery Partner</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <!-- Consider adding a font library like Google Fonts if desired -->
 </head>
 <body>
-    <h1>Welcome to Droply</h1>
-    <p><a href="pages/dashboard.html">Go to Dashboard</a></p>
-    <p>
-        <a href="pages/login.html">Login</a> | 
-        <a href="pages/register.html">Register</a>
-    </p>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="index.html" class="logo">Droply</a>                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="pages/how-it-works.html">How It Works</a></li>
+                    <li><a href="pages/pricing.html">Pricing</a></li>
+                    <li><a href="pages/track-package.html">Track Package</a></li>
+                    <li><a href="#cta">Get Started</a></li>
+                </ul>
+                <div class="header-controls">
+                    <div class="auth-buttons">
+                        <a href="pages/login.html" class="btn btn-login">Log In</a>
+                        <a href="pages/register.html" class="btn btn-signup">Sign Up</a>
+                    </div>
+                    <button id="theme-toggle-button" class="theme-toggle-btn" title="Toggle theme">
+                        <span class="icon-moon">🌙</span>
+                        <span class="icon-sun" style="display:none;">☀️</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Fast, Flexible Package Delivery On Your Terms</h1>
+                    <p>Connect with independent drivers to deliver your packages when and where you need them. Or become a driver and earn on your schedule.</p>
+                    <div class="hero-buttons">
+                        <a href="pages/register.html?role=company" class="btn btn-primary">Send a Package</a>
+                        <a href="pages/register.html?role=deliverer" class="btn btn-secondary">Become a Driver <span class="arrow">&rarr;</span></a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src ="img/cover_picture.png" alt="Package Delivery Logistics" >
+                    <!-- Replace with an actual relevant image -->
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works-section">
+            <div class="container">
+                <h2>How Droply Works</h2>
+                <p class="section-subtitle">Our platform connects businesses and individuals with independent drivers for fast, reliable package delivery.</p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon"><img src = "img/request.png" alt = "Request Icon" ></div>
+                        <h3>Request Delivery</h3>
+                        <p>Create a delivery request with package details, pickup and drop-off locations.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><img src = "img/driver.png" alt = "Driver Icon" ></div> 
+                        <h3>Driver Accepts</h3>
+                        <p>Available drivers in your area can view and accept your delivery request.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><img src = "img/track.png" alt = "Tracking Ivon" ></div> 
+                        <h3>Track & Receive</h3>
+                        <p>Track your package in real-time and receive it at the destination.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="why-choose-us-section">
+            <div class="container">
+                <h2>Why Choose Droply</h2>
+                <p class="section-subtitle">Our platform offers benefits for both customers and drivers.</p>
+                <div class="why-choose-grid">
+                    <div class="customer-features">
+                        <h3>For Customers</h3>
+                        <div class="feature-point">
+                            <div class="feature-icon-small"><img src = "img/on-demand.png" alt = "demand icon"></div>
+                            <div>
+                                <h4>On-Demand Delivery</h4>
+                                <p>Get your packages delivered when you need them, without waiting for scheduled delivery windows.</p>
+                            </div>
+                        </div>
+                        <div class="feature-point">
+                            <div class="feature-icon-small"><img src = "img/secure.png" alt = "secure icon"></div>
+                            <div>
+                                <h4>Secure & Reliable</h4>
+                                <p>All drivers are verified and packages are insured for safe, reliable delivery.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="driver-features">
+                        <h3>For Drivers</h3>
+                        <div class="feature-point">
+                            <div class="feature-icon-small"><img src = "img/flexible schedule.png" alt = "schedule icon"></div>
+                            <div>
+                                <h4>Flexible Schedule</h4>
+                                <p>Work when you want. Choose the deliveries that fit your schedule and location.</p>
+                            </div>
+                        </div>
+                        <div class="feature-point">
+                            <div class="feature-icon-small"><img src = "img/choose delivery.png" alt = "choose icon"></div>
+                            <div>
+                                <h4>Choose Your Deliveries</h4>
+                                <p>Select packages based on size, distance, and payout. You're in control of what you deliver.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-section">
+            <div class="container">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of customers and drivers already using Droply for their delivery needs.</p>
+                <div class="cta-buttons">
+                    <a href="pages/register.html?role=company" class="btn btn-cta-primary">Send a Package</a>
+                    <a href="pages/register.html?role=deliverer" class="btn btn-cta-secondary">Become a Driver</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-column about-us">
+                <h4>Droply</h4>
+                <p>On-demand package delivery platform connecting customers with independent drivers.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Safety</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2025 Droply. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="js/main.js"></script>
+    <script src="js/transitions.js"></script>
 </body>
 </html>

@@ -1,0 +1,159 @@
+/* Page Transition Animations */
+
+/* Base transition styles for all pages */
+.page-transition {
+    position: relative;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+/* Fade in from opacity 0 to 1 */
+.fade-in {
+    animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade in from bottom */
+.fade-in-up {
+    animation-name: fadeInUp;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Fade in from right */
+.slide-in-right {
+    animation-name: slideInRight;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Fade in with slide effect - special for How It Works page */
+.fade-in-slide {
+    animation-name: fadeInSlide;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translate3d(-15px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Fade in from left */
+.slide-in-left {
+    animation-name: slideInLeft;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Zoom in from smaller size */
+.zoom-in {
+    animation-name: zoomIn;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+/* Exit animations */
+.fade-out {
+    animation-name: fadeOut;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Fade in with scale effect - special for Pricing page */
+.fade-in-scale {
+    animation-name: fadeInScale;
+    transform-origin: center;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Page specific animations */
+body.login-body-bg main,
+body.register-body-bg main {
+    animation-duration: 0.6s;
+    animation-name: fadeInUp;
+}
+
+.auth-form-container,
+.register-form-area,
+.login-form-area {
+    animation-duration: 0.8s;
+    animation-name: zoomIn;
+}
+
+/* Dashboard content animation */
+#dashboardContent {
+    animation-duration: 0.5s;
+    animation-name: fadeIn;
+}
+
+/* For smoother animations */
+body {
+    overflow-x: hidden;
+}

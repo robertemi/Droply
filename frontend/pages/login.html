@@ -6,39 +6,50 @@
     <title>Login - Droply</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo"><a href="../index.html">Droply</a></div>
-            <ul>
+<body class="login-body-bg">
+    <header class="enhanced-header">        <nav>
+            <div class="logo"><a href="../index.html">Droply</a></div>            <ul>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="track-package.html">Track Package</a></li>
                 <li><a href="register.html">Register</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
         </nav>
+        <div class="page-identifier">Login</div>
     </header>
 
-    <main class="auth-container">
-        <div class="auth-form-container">
-            <h2>Login</h2>
+    <main class="login-main-content">
+        <div class="login-form-area">
+            <h1 class="login-main-title">Hello,
+                Welcome back!
+            </h1>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email or Username</label>
-                    <input type="text" id="email" name="email" required>
+                    <input type="text" id="email" name="email" placeholder="Email address" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn btn-login">Sign in</button>
             </form>
-            <p class="auth-switch">Don't have an account? <a href="register.html">Register here</a></p>
+            <p class="auth-switch">Don't have an account? <a href="register.html">Sign up</a></p>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Droply. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2025</span> Droply. All rights reserved.</p>
     </footer>
 
+    <script src="../js/main.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/transitions.js"></script>
 </body>
 </html>

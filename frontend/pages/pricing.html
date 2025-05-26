@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transparent pricing plans for Droply delivery services. Choose from standard or express delivery options, with clear pricing for customers and drivers.">
+    <title>Pricing - Droply | Transparent Delivery Rates</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/pricing.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="../index.html" class="logo">Droply</a>                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="pricing.html" class="active">Pricing</a></li>
+                    <li><a href="track-package.html">Track Package</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html" class="cta-button">Register</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-transition fade-in">
+        <!-- Hero section -->
+        <section class="pricing-hero">
+            <div class="container">
+                <h1>Simple, Transparent Pricing</h1>
+                <p class="subtitle">Choose the right plan for your delivery needs</p>
+            </div>
+        </section>
+
+        <!-- Pricing plans section -->
+        <section class="pricing-plans">
+            <div class="container">
+                <div class="pricing-tabs">
+                    <button class="tab-btn active" data-tab="customer">For Customers</button>
+                    <button class="tab-btn" data-tab="driver">For Drivers</button>
+                </div>
+                
+                <div class="pricing-content" id="customer-pricing">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Basic</h3>
+                                <div class="price">
+                                    <span class="amount">5 RON</span>
+                                    <span class="period">+ distance fee</span>
+                                </div>
+                            </div>
+                            <div class="pricing-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Standard delivery (24hr)</li>
+                                    <li><i class="fas fa-check"></i> Package tracking</li>
+                                    <li><i class="fas fa-check"></i> Up to 5lbs packages</li>
+                                    <li><i class="fas fa-check"></i> Basic insurance (100 RON)</li>
+                                    <li class="not-included"><i class="fas fa-times"></i> Priority support</li>
+                                </ul>
+                                <div class="calculation">
+                                    <p><strong>Distance Fee:</strong> 0.50 RON/km</p>
+                                </div>
+                                <a href="register.html?type=company" class="button primary-button">Get Started</a>
+                            </div>
+                        </div>
+
+                        <div class="pricing-card popular">
+                            <div class="popular-tag">Most Popular</div>
+                            <div class="pricing-header">
+                                <h3>Premium</h3>
+                                <div class="price">
+                                    <span class="amount">50 RON</span>
+                                    <span class="period">+ distance fee</span>
+                                </div>
+                            </div>
+                            <div class="pricing-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Express delivery (3hr)</li>
+                                    <li><i class="fas fa-check"></i> Real-time GPS tracking</li>
+                                    <li><i class="fas fa-check"></i> Up to 20lbs packages</li>
+                                    <li><i class="fas fa-check"></i> Enhanced insurance (300 RON)</li>
+                                    <li><i class="fas fa-check"></i> Priority support</li>
+                                </ul>
+                                <div class="calculation">
+                                    <p><strong>Distance Fee:</strong> 0.40 RON/km</p>
+                                </div>
+                                <a href="register.html?type=company" class="button primary-button">Get Started</a>
+                            </div>
+                        </div>
+
+                        <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Business</h3>
+                                <div class="price">
+                                    <span class="amount">Custom</span>
+                                    <span class="period">Contact sales</span>
+                                </div>
+                            </div>
+                            <div class="pricing-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Dedicated drivers</li>
+                                    <li><i class="fas fa-check"></i> API integration</li>
+                                    <li><i class="fas fa-check"></i> Bulk shipments</li>
+                                    <li><i class="fas fa-check"></i> Full insurance coverage</li>
+                                    <li><i class="fas fa-check"></i> 24/7 premium support</li>
+                                </ul>
+                                <div class="calculation">
+                                    <p><strong>Custom pricing</strong> based on volume</p>
+                                </div>
+                                <a href="#contact-form" class="button secondary-button">Contact Sales</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-content hidden" id="driver-pricing">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Standard Driver</h3>
+                                <div class="price">
+                                    <span class="amount">Free</span>
+                                    <span class="period">to join</span>
+                                </div>
+                            </div>
+                            <div class="pricing-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Base pay per delivery</li>
+                                    <li><i class="fas fa-check"></i> Keep 75% of delivery fee</li>
+                                    <li><i class="fas fa-check"></i> Weekly payments</li>
+                                    <li><i class="fas fa-check"></i> Basic driver app access</li>
+                                    <li class="not-included"><i class="fas fa-times"></i> Priority order access</li>
+                                </ul>                                <div class="earnings">
+                                    <p><strong>Average earnings:</strong> 75-125 RON/hr</p>
+                                </div>
+                                <a href="register.html?type=deliverer" class="button primary-button">Join Now</a>
+                            </div>
+                        </div>
+
+                        <div class="pricing-card popular">
+                            <div class="popular-tag">Most Popular</div>
+                            <div class="pricing-header">
+                                <h3>Premium Driver</h3>
+                                <div class="price">
+                                    <span class="amount">95 RON</span>
+                                    <span class="period">/month</span>
+                                </div>
+                            </div>
+                            <div class="pricing-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Higher base pay</li>
+                                    <li><i class="fas fa-check"></i> Keep 85% of delivery fee</li>
+                                    <li><i class="fas fa-check"></i> Daily payments option</li>
+                                    <li><i class="fas fa-check"></i> Priority order access</li>
+                                    <li><i class="fas fa-check"></i> Insurance benefits</li>
+                                </ul>                                <div class="earnings">
+                                    <p><strong>Average earnings:</strong> 110-175 RON/hr</p>
+                                </div>
+                                <a href="register.html?type=deliverer" class="button primary-button">Join Now</a>
+                            </div>
+                        </div>
+
+                        <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Business Partner</h3>
+                                <div class="price">
+                                    <span class="amount">245 RON</span>
+                                    <span class="period">/month</span>
+                                </div>
+                            </div>
+                            <div class="pricing-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Highest pay rates</li>
+                                    <li><i class="fas fa-check"></i> Keep 90% of delivery fee</li>
+                                    <li><i class="fas fa-check"></i> Exclusive high-value orders</li>
+                                    <li><i class="fas fa-check"></i> Multiple vehicle support</li>
+                                    <li><i class="fas fa-check"></i> Full insurance package</li>
+                                </ul>                                <div class="earnings">
+                                    <p><strong>Average earnings:</strong> 150-250 RON/hr</p>
+                                </div>
+                                <a href="register.html?type=deliverer" class="button primary-button">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator section -->
+        <section class="price-calculator">
+            <div class="container">
+                <h2>Estimate Your Delivery Cost</h2>
+                <p class="section-subtitle">Get a quick estimate based on your package details</p>
+                
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="package-weight">Package Weight</label>
+                            <select id="package-weight" class="calc-input">
+                                <option value="5">Small (Up to 5 lbs)</option>
+                                <option value="10">Medium (5-10 lbs)</option>
+                                <option value="20">Large (10-20 lbs)</option>
+                                <option value="50">X-Large (20-50 lbs)</option>
+                            </select>
+                        </div>
+                          <div class="form-group">                            <label for="distance">Delivery Distance (km)</label>
+                            <input type="range" id="distance" class="calc-input" min="1" max="80" value="8">
+                            <div class="range-value"><span id="distance-value">8</span> km</div>
+                        </div>
+                          <div class="form-group city-selection">
+                            <label for="city-select">Common Delivery Routes</label>
+                            <select id="city-select" class="calc-input">
+                                <option value="custom">Custom Distance (set manually)</option>
+                                <option value="8">Bucharest - Ilfov (8 km)</option>
+                                <option value="18">Bucharest - Ploiești (18 km)</option>
+                                <option value="40">Bucharest - Pitești (40 km)</option>
+                                <option value="60">Bucharest - Brașov (60 km)</option>
+                                <option value="35">Bucharest - Giurgiu (35 km)</option>
+                                <option value="44">Bucharest - Târgoviște (44 km)</option>
+                                <option value="55">Bucharest - Craiova (55 km)</option>
+                                <option value="23">Cluj - Turda (23 km)</option>
+                                <option value="30">Iași - Vaslui (30 km)</option>
+                                <option value="15">Timișoara - Arad (15 km)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="delivery-speed">Delivery Speed</label>
+                            <select id="delivery-speed" class="calc-input">
+                                <option value="standard">Standard (24 hours)</option>
+                                <option value="express">Express (3 hours)</option>
+                            </select>
+                        </div>
+                        
+                        <button id="calculate-btn" class="button primary-button">Calculate Price</button>
+                    </div>
+                    
+                    <div class="calculator-result">
+                        <h3>Estimated Price</h3>
+                        <div class="price-result">
+                            <span id="price-amount">0.00</span>
+                        </div>
+                        <div class="price-breakdown">
+                            <p>Base Fee: <span id="base-fee">0.00</span></p>
+                            <p>Distance Fee: <span id="distance-fee">0.00</span></p>
+                            <p>Weight Surcharge: <span id="weight-fee">0.00</span></p>
+                        </div>
+                        <a href="register.html?type=company" class="button secondary-button">Book This Delivery</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ section -->
+        <section class="pricing-faq">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">How is my delivery price calculated?</div>
+                        <div class="accordion-content">
+                            <p>Your delivery price consists of a base fee (depending on your chosen plan), a distance fee (cost per mile), and potential surcharges for heavier items or express delivery. Our calculator above can help you estimate costs before booking.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">Are there any hidden fees?</div>
+                        <div class="accordion-content">
+                            <p>No, we pride ourselves on transparent pricing. You'll see the complete breakdown before confirming any delivery. The only additional charges would be for add-on services you specifically request, such as extra insurance coverage.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">Can I switch between plans?</div>
+                        <div class="accordion-content">
+                            <p>Yes! You can choose a different plan for each delivery based on your needs. For drivers, you can upgrade or downgrade your subscription plan at any time, with changes taking effect on your next billing cycle.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">How do driver earnings work?</div>
+                        <div class="accordion-content">
+                            <p>Drivers keep a percentage of each delivery fee based on their subscription level (75% for Standard, 85% for Premium, and 90% for Business Partner). Additional bonuses are available during peak hours, and tips go entirely to drivers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact form -->
+        <section class="contact-section" id="contact-form">
+            <div class="container">
+                <h2>Need a Custom Solution?</h2>
+                <p class="section-subtitle">Get in touch with our sales team for personalized pricing</p>
+                
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Your email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" placeholder="Your company">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Your phone number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="message">Tell us about your delivery needs</label>
+                        <textarea id="message" rows="4" placeholder="Describe your requirements" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="button primary-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- CTA section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of satisfied customers and drivers using Droply every day.</p>
+                <div class="cta-buttons">
+                    <a href="register.html?type=company" class="button primary-button">Send a Package</a>
+                    <a href="register.html?type=deliverer" class="button secondary-button">Become a Driver</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Droply</h4>
+                    <p>Your reliable solution for fast and secure package deliveries.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="track-package.html">Track Package</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@droply.com</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2025 Droply. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/transitions.js"></script>
+    <script src="../js/pricing.js"></script>
+</body>
+</html>
