@@ -246,3 +246,303 @@ footer {
         transform: translateX(0);
     }
 }
+
+/* === DASHBOARD SPECIFIC STYLES === */
+
+.dashboard-header {
+    background-color: #fff;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-dash {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #2a75bb; /* Blue for logo */
+}
+
+.dashboard-nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-nav ul li {
+    margin-left: 20px;
+}
+
+.dashboard-nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.dashboard-nav ul li a:hover {
+    color: #2a75bb;
+}
+
+.hamburger-menu {
+    display: none; /* Hidden by default, shown on smaller screens */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: #333;
+    cursor: pointer;
+}
+
+.dashboard-main {
+    display: flex;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+.sidebar {
+    flex-basis: 250px;
+    background-color: #ffffff; /* White sidebar */
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content; /* Adjust height to content */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.sidebar h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background-color: #2a75bb; /* Blue */
+    color: #fff;
+}
+
+.btn-logout {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #d9534f; /* Red for logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #c9302c; /* Darker red */
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-content h1 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.dashboard-content p#role-specific-intro {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.dashboard-view {
+    margin-top: 20px;
+}
+
+.dashboard-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+}
+
+.dashboard-section h2, .dashboard-view h2 {
+    font-size: 1.5em;
+    color: #2a75bb;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.dashboard-section h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#company-orders-list ul, 
+#available-orders-list ul,
+#deliverer-inventory-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#company-orders-list li, 
+#available-orders-list li,
+#deliverer-inventory-list li {
+    background-color: #fff;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+#available-orders-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.btn-accept-order {
+    background-color: #5cb85c; /* Green */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 5px; /* Add some margin if it wraps */
+    transition: background-color 0.3s ease;
+}
+
+.btn-accept-order:hover {
+    background-color: #4cae4c; /* Darker green */
+}
+
+
+.dashboard-footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Responsive adjustments for Dashboard */
+@media (max-width: 768px) {
+    .header-flex {
+        /* Keep logo and hamburger on one line if possible */
+    }
+    .logo-dash {
+        margin-bottom: 0; /* Remove bottom margin if it was added by column flex */
+    }
+    .dashboard-nav {
+        display: none; /* Main nav links are hidden, sidebar is primary on mobile */
+    }
+ 
+    .hamburger-menu {
+        display: block;
+        position: absolute; /* Or relative to header-flex if it's simpler */
+        top: 12px; /* Adjust for vertical alignment */
+        right: 20px;
+    }
+
+    .dashboard-main {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 280px; /* Fixed width for sidebar */
+        position: fixed;
+        left: -280px; /* Start off-screen */
+        top: 0;
+        bottom: 0;
+        z-index: 1001; 
+        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
+        padding-top: 20px; /* Adjust as needed */
+        border-right: 1px solid #d0d0d0;
+        background-color: #fff; /* Ensure background is solid */
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .dashboard-content {
+        margin-left: 0; /* Full width when sidebar is hidden */
+        transition: margin-left 0.3s ease-in-out; /* Smooth transition if sidebar pushes content */
+    }
+    /* Optional: if sidebar pushes content instead of overlaying */
+    /* .sidebar.active ~ .dashboard-content {
+        margin-left: 280px; 
+    } */
+}
+
+@media (max-width: 480px) {
+    .dashboard-content h1 {
+        font-size: 1.5em;
+    }
+    .dashboard-section h2, .dashboard-view h2 {
+        font-size: 1.3em;
+    }
+    .sidebar {
+        width: 240px;
+        left: -240px;
+    }
+    /* Optional: if sidebar pushes content */
+    /* .sidebar.active ~ .dashboard-content {
+        margin-left: 240px; 
+    } */
+
+    #available-orders-list li {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start;
+    }
+    .btn-accept-order {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

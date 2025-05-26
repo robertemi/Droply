@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track your Droply package in real-time and get accurate delivery updates.">
+    <title>Track Package - Droply | Real-Time Package Tracking</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/track-package.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="../index.html" class="logo">Droply</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="track-package.html" class="active">Track Package</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html" class="cta-button">Register</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-transition fade-in">
+        <!-- Hero section -->
+        <section class="tracking-hero">
+            <div class="container">
+                <h1>Track Your Package</h1>
+                <p class="subtitle">Get real-time updates on your delivery status</p>
+                
+                <div class="tracking-form-container">
+                    <form id="tracking-form" class="tracking-form">
+                        <div class="form-group">
+                            <label for="tracking-number">Enter Tracking Number</label>
+                            <input type="text" id="tracking-number" placeholder="e.g. DRP-12345678-RO" required>
+                        </div>
+                        <button type="submit" class="button primary-button">Track Package</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tracking result section (initially hidden) -->
+        <section class="tracking-result hidden" id="tracking-result">
+            <div class="container">
+                <div class="package-info">
+                    <h2>Package Status</h2>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Tracking Number:</span>
+                            <span id="result-tracking-number" class="detail-value">DRP-12345678-RO</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span id="result-status" class="detail-value status-in-transit">In Transit</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Estimated Delivery:</span>
+                            <span id="result-eta" class="detail-value">May 27, 2025, 14:30</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Ship Date:</span>
+                            <span id="result-shipped" class="detail-value">May 25, 2025</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Service Type:</span>
+                            <span id="result-service" class="detail-value">Standard Delivery</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Origin:</span>
+                            <span id="result-origin" class="detail-value">Bucharest, Romania</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Destination:</span>
+                            <span id="result-destination" class="detail-value">Cluj-Napoca, Romania</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tracking-progress">
+                    <div class="progress-timeline">
+                        <div class="progress-step completed">
+                            <div class="step-icon"><i class="fas fa-box"></i></div>
+                            <div class="step-content">
+                                <h4>Package Processed</h4>
+                                <p>May 25, 2025, 10:15</p>
+                            </div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="step-icon"><i class="fas fa-warehouse"></i></div>
+                            <div class="step-content">
+                                <h4>Departed Facility</h4>
+                                <p>May 25, 2025, 15:30</p>
+                            </div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="step-icon"><i class="fas fa-truck"></i></div>
+                            <div class="step-content">
+                                <h4>In Transit</h4>
+                                <p>May 26, 2025, 09:45</p>
+                            </div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="step-content">
+                                <h4>Out for Delivery</h4>
+                                <p>Pending</p>
+                            </div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-icon"><i class="fas fa-home"></i></div>
+                            <div class="step-content">
+                                <h4>Delivered</h4>
+                                <p>Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tracking-map-container">
+                    <h3>Live Package Location</h3>
+                    <div class="tracking-map" id="package-map">
+                        <img src="../img/track.png" alt="Package tracking map" class="map-placeholder">
+                        <!-- Will be replaced with actual map integration -->
+                    </div>
+                </div>
+                
+                <div class="tracking-details">
+                    <h3>Detailed Updates</h3>
+                    <div class="tracking-updates">
+                        <div class="update-entry">
+                            <div class="update-time">
+                                <span class="date">May 26</span>
+                                <span class="time">09:45</span>
+                            </div>
+                            <div class="update-content">
+                                <h4>In Transit</h4>
+                                <p>Package is in transit to destination</p>
+                                <p class="location">Brașov Sorting Facility, Romania</p>
+                            </div>
+                        </div>
+                        <div class="update-entry">
+                            <div class="update-time">
+                                <span class="date">May 25</span>
+                                <span class="time">15:30</span>
+                            </div>
+                            <div class="update-content">
+                                <h4>Departed Facility</h4>
+                                <p>Package has left the sorting facility</p>
+                                <p class="location">Bucharest Distribution Center, Romania</p>
+                            </div>
+                        </div>
+                        <div class="update-entry">
+                            <div class="update-time">
+                                <span class="date">May 25</span>
+                                <span class="time">10:15</span>
+                            </div>
+                            <div class="update-content">
+                                <h4>Package Processed</h4>
+                                <p>Package has been processed and is ready for shipping</p>
+                                <p class="location">Bucharest Distribution Center, Romania</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tracking-actions">
+                    <button id="btn-notify" class="button secondary-button"><i class="fas fa-bell"></i> Get Delivery Notifications</button>
+                    <button id="btn-problem" class="button outline-button"><i class="fas fa-exclamation-triangle"></i> Report a Problem</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- No results section (initially hidden) -->
+        <section class="no-tracking-results hidden" id="no-tracking-results">
+            <div class="container">
+                <div class="no-results-content">
+                    <i class="fas fa-search"></i>
+                    <h2>No Package Found</h2>
+                    <p>We couldn't find any package with the tracking number provided. Please check the number and try again.</p>
+                    <button id="btn-try-again" class="button primary-button">Try Again</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent shipments (visible for logged-in users) -->
+        <section class="recent-shipments hidden" id="recent-shipments">
+            <div class="container">
+                <h2>Your Recent Shipments</h2>
+                <div class="shipments-list">
+                    <div class="shipment-card">
+                        <div class="shipment-status status-delivered"></div>
+                        <div class="shipment-details">
+                            <h3 class="shipment-tracking">DRP-98765432-RO</h3>
+                            <p class="shipment-route">Bucharest → Timișoara</p>
+                            <p class="shipment-date">Delivered on May 23, 2025</p>
+                        </div>
+                        <div class="shipment-actions">
+                            <button class="button text-button track-btn">Track</button>
+                        </div>
+                    </div>
+                    <div class="shipment-card">
+                        <div class="shipment-status status-in-transit"></div>
+                        <div class="shipment-details">
+                            <h3 class="shipment-tracking">DRP-12345678-RO</h3>
+                            <p class="shipment-route">Bucharest → Cluj-Napoca</p>
+                            <p class="shipment-date">Estimated delivery on May 27, 2025</p>
+                        </div>
+                        <div class="shipment-actions">
+                            <button class="button text-button track-btn">Track</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ section -->
+        <section class="tracking-faq">
+            <div class="container">
+                <h2>Tracking FAQ</h2>
+                
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">Where can I find my tracking number?</div>
+                        <div class="accordion-content">
+                            <p>Your tracking number is provided in the confirmation email you received after booking a delivery. It's also available in your Droply account under "Order History" if you booked while logged in. The format typically looks like: DRP-12345678-RO.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">How accurate is the estimated delivery time?</div>
+                        <div class="accordion-content">
+                            <p>Our estimated delivery times are typically accurate within a 30-minute window for urban areas and a 60-minute window for rural areas. Factors like traffic, weather conditions, and access issues can sometimes affect the exact delivery time.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">Can I change the delivery address after shipping?</div>
+                        <div class="accordion-content">
+                            <p>Yes, for packages that haven't yet been dispatched for final delivery, you can request an address change. Log into your account or contact our customer support team with your tracking number to request this change. Note that additional fees may apply depending on the new destination.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">What do the different tracking statuses mean?</div>
+                        <div class="accordion-content">
+                            <p><strong>Package Processed</strong>: Your package has been received and entered into our system.<br>
+                            <strong>Departed Facility</strong>: Your package has left our distribution center.<br>
+                            <strong>In Transit</strong>: Your package is on its way to the destination.<br>
+                            <strong>Out for Delivery</strong>: Your package is on the delivery vehicle for final delivery.<br>
+                            <strong>Delivered</strong>: Your package has been delivered successfully.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Need to Send a Package?</h2>
+                <p>Use our services for fast, reliable package delivery across Romania.</p>
+                <div class="cta-buttons">
+                    <a href="register.html?type=company" class="button primary-button">Send a Package</a>
+                    <a href="pricing.html" class="button secondary-button">View Pricing</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Droply</h4>
+                    <p>Your reliable solution for fast and secure package deliveries.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="track-package.html">Track Package</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@droply.com</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2025 Droply. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/transitions.js"></script>
+    <script src="../js/track-package.js"></script>
+</body>
+</html>

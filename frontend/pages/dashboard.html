@@ -3,51 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Droply - Dashboard</title>
+    <title>User Dashboard - Droply</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <button class="menu-toggle" id="menuToggle">&#9776;</button>
-            <a href="../index.html" class="logo">Droply</a>
-            <ul id="navLinks">
-                <li><a href="../index.html">Home</a></li>
-            </ul>
-        </nav>
+    <header class="dashboard-header">
+        <div class="container header-flex">
+            <div class="logo-dash">Droply Dashboard</div>
+            <nav class="dashboard-nav">
+                <ul id="nav-links">
+                    <!-- Links will be populated by JS -->
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="theme-toggle-button" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun" style="display:none;">☀️</span>
+            </button>
+        </div>
     </header>
 
-    <main class="dashboard-container">
-        <aside class="sidebar">
-            <h2>Menu</h2>
-            <ul id="sidebarMenu">
-                <li><a href="/frontend/pages/orderManagement.html">Create Order</a></li>
-                <li><a href="/frontend/pages/orderHistory.html">Order History</a></li>
-                <li><a href="/frontend/pages/notifications.html">Notifications</a></li>
+    <main class="container dashboard-main">
+        <aside class="sidebar" id="sidebar">
+            <h3>Navigation</h3>
+            <ul id="sidebar-links">
+                <!-- Sidebar links will be populated by JS -->
             </ul>
+            <button id="logout-button" class="btn btn-logout">Logout</button>
         </aside>
 
-        <section class="content-area">
-            <h1>Dashboard</h1>
-            <p>Welcome to your Droply dashboard. Select an option from the menu to get started.</p>
+        <section class="dashboard-content" id="dashboard-content">
+            <h1 id="welcome-message">Welcome to your Dashboard</h1>
+            <p id="role-specific-intro">Your role specific content will appear here.</p>
 
-            <div id="companyDashboard" class="role-dashboard">
+            <!-- Company Dashboard View -->
+            <div id="company-dashboard" class="dashboard-view" style="display: none;">
                 <h2>Company Dashboard</h2>
-                <ul>
-                    <li><a href="/frontend/pages/orderManagement.html">Create and Manage Orders</a></li>
-                    <li><a href="/frontend/pages/orderHistory.html">Order History</a></li>
-                    <li><a href="/frontend/pages/notifications.html">Notifications</a></li>
-                </ul>
+                <div class="dashboard-section">
+                    <h3>Order Management</h3>
+                    <div id="company-orders-list">
+                        <!-- Orders will be listed here by JS -->
+                        <p>Loading orders...</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Financial Overview</h3>
+                    <p>Total Balance from Delivered Orders: <span id="company-balance">$0.00</span></p>
+                </div>
             </div>
+
+            <!-- Deliverer Dashboard View -->
+            <div id="deliverer-dashboard" class="dashboard-view" style="display: none;">
+                <h2>Deliverer Dashboard</h2>
+                <div class="dashboard-section">
+                    <h3>Available Orders</h3>
+                    <div id="available-orders-list">
+                        <!-- Available orders will be listed here by JS -->
+                        <p>Loading available orders...</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h3>My Inventory (Accepted Orders)</h3>
+                    <div id="deliverer-inventory-list">
+                        <!-- Accepted orders will be listed here by JS -->
+                        <p>No orders accepted yet.</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h3>My Earnings</h3>
+                    <p>Total Balance: <span id="deliverer-balance">$0.00</span></p>
+                </div>
+            </div>
+
+            <!-- Admin Dashboard View (Placeholder) -->
+            <div id="admin-dashboard" class="dashboard-view" style="display: none;">
+                <h2>Admin Dashboard</h2>
+                <p>Full system overview and management tools.</p>
+                {/* Further admin-specific content will go here */}
+            </div>
+
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Droply. All rights reserved.</p>
+    <footer class="dashboard-footer">
+        <p>&copy; <span id="current-year"></span> Droply. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript files -->
     <script src="../js/main.js"></script>
     <script src="../js/dashboard.js"></script>
     <script src="../js/auth.js"></script>

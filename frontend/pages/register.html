@@ -6,46 +6,92 @@
     <title>Register - Droply</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo"><a href="../index.html">Droply</a></div>
-            <ul>
+<body class="register-body-bg">
+    <header class="enhanced-header">        <nav>
+            <div class="logo"><a href="../index.html">Droply</a></div>            <ul>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="track-package.html">Track Package</a></li>
                 <li><a href="login.html">Login</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
         </nav>
-    </header>
-
-    <main class="auth-container">
-        <div class="auth-form-container">
+        <div class="page-identifier">Registration</div>
+    </header>    <main class="register-main-content">
+        <div class="auth-form-container register-form-area">
             <h2>Register</h2>
-            <form id="registerForm">
+            
+            <div class="form-tabs">
+                <button type="button" id="companyTab" class="tab-btn active">Register as Company</button>
+                <button type="button" id="driverTab" class="tab-btn">Register as Driver</button>
+            </div>
+            
+            <!-- Company Registration Form -->
+            <form id="companyRegisterForm" class="register-form active">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="companyUsername">Username</label>
+                    <input type="text" id="companyUsername" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="companyAddress">Address</label>
+                    <input type="text" id="companyAddress" name="address" required>
+                </div>  
+                <div class="form-group">
+                    <label for="companyPassword">Password</label>
+                    <input type="password" id="companyPassword" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="companyConfirmPassword">Confirm Password</label>
+                    <input type="password" id="companyConfirmPassword" name="confirmPassword" required>
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <label for="companyEmail">Email</label>
+                    <input type="email" id="companyEmail" name="email" required>
+                </div>
+                <input type="hidden" name="userType" value="company">
+                <button type="submit" class="btn">Register Company</button>
+            </form>
+            
+            <!-- Driver Registration Form -->
+            <form id="driverRegisterForm" class="register-form">
+                <div class="form-group">
+                    <label for="driverName">Full Name</label>
+                    <input type="text" id="driverName" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="userType">Register as:</label>
-                    <select id="userType" name="userType">
-                        <option value="company">Company</option>
-                        <option value="deliverer">Deliverer</option>
+                    <label for="vehicleType">Vehicle Type</label>
+                    <select id="vehicleType" name="vehicleType" required>
+                        <option value="">Select Vehicle Type</option>
+                        <option value="car">Car</option>
+                        <option value="motorcycle">Motorcycle</option>
+                        <option value="bicycle">Bicycle</option>
+                        <option value="van">Van</option>
+                        <option value="truck">Truck</option>
                     </select>
                 </div>
-                <button type="submit" class="btn">Register</button>
+                <div class="form-group">
+                    <label for="driverPassword">Password</label>
+                    <input type="password" id="driverPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="driverConfirmPassword">Confirm Password</label>
+                    <input type="password" id="driverConfirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="driverEmail">Email</label>
+                    <input type="email" id="driverEmail" name="email" required>
+                </div>
+                <input type="hidden" name="userType" value="deliverer">
+                <button type="submit" class="btn">Register as Driver</button>
             </form>
+            
             <p class="auth-switch">Already have an account? <a href="login.html">Login here</a></p>
         </div>
     </main>
@@ -55,5 +101,6 @@
     </footer>
 
     <script src="../js/auth.js"></script>
+    <script src="../js/transitions.js"></script>
 </body>
 </html>
