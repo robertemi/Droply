@@ -95,57 +95,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Company registration form handling
-    if (companyRegisterForm) {
-        companyRegisterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = companyRegisterForm.username.value;
-            const address = companyRegisterForm.address.value;
-            const email = companyRegisterForm.email.value;
-            const password = companyRegisterForm.password.value;
-            const confirmPassword = companyRegisterForm.confirmPassword.value;
-            const userType = 'company';
+if (companyRegisterForm) {
+    companyRegisterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = companyRegisterForm.name.value; // Changed from 'name' to 'username' to match form field
+        const address = companyRegisterForm.address.value;
+        const email = companyRegisterForm.company_email.value; // Changed to match form field name
+        const password = companyRegisterForm.password.value;
+        const confirmPassword = companyRegisterForm.confirmPassword.value;
+        const userType = 'company';
 
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
 
-            // // Simulate registration for company
-            // localStorage.setItem('isLoggedIn', 'true');
-            // localStorage.setItem('userRole', userType);
-            // localStorage.setItem('username', username);
-            // localStorage.setItem('email', email);
-            
-            // If integrating with backend API
-            const url = 'https://droply-backend.onrender.com/api/companies';
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username,
-                    address,
-                    email,
-                    password,
-                })
+        // Simulate registration for company
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userRole', userType);
+        localStorage.setItem('username', name);
+        localStorage.setItem('email', email);
+        
+        // If integrating with backend API
+        const url = 'https://droply-backend.onrender.com/api/companies';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name, // Changed from 'username' to 'name' to match backend expectation
+                address: address,
+                company_email: email, // Changed to match backend expectation
+                password: password
             })
-            .then(response => {
-                if (response.ok) {
-                    alert('Company registration successful! Redirecting to dashboard...');
-                    window.location.href = 'dashboard.html';
-                } else {
-                    alert('Registration failed. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Registration error:', error);
-                // Fallback for demo/testing if API is not available
-                alert('Company registration successful! (Demo mode) Redirecting to dashboard...');
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Company registration successful! Redirecting to dashboard...');
                 window.location.href = 'dashboard.html';
-            });
+            } else {
+                response.json().then(err => {
+                    alert(`Registration failed: ${err.error || 'Unknown error'}`);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Registration error:', error);
+            alert('Registration failed. Please check console for details.');
         });
-    }
+
+    });
+}
     
     // Driver registration form handling
     if (driverRegisterForm) {
@@ -204,12 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // window.location.href = 'dashboard.html';
             });
         });
-        console.log('Submitting:', {
-    name: name,
-    vehicle_type: vehicleType,
-    courier_email: email,
-    password: password
-});
     }
 
     // Dynamic auth links in header (e.g., on login/register pages themselves)
