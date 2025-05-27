@@ -156,7 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isLoggedIn && (window.location.pathname.includes('dashboard.html'))) {
         window.location.href = 'login.html';
         return; // Stop further execution if not logged in
-    }    function handleLogout() {
+    }
+    function handleLogout() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userRole');
         // Potentially clear other session-related data
@@ -165,7 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (logoutButton) {
         logoutButton.addEventListener('click', handleLogout);
-    }    function populateSidebar(role) {
+    }
+    function populateSidebar(role) {
         if (!sidebarLinks) return;
         sidebarLinks.innerHTML = ''; // Clear existing links
 
@@ -251,139 +253,137 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function populateCompanyDashboard() {
-    const availableOrdersList = document.getElementById('company-orders-list');
-    const financialOverview = document.getElementById('company-balance');
-    const companyId = localStorage.getItem('company_id');
+        const availableOrdersList = document.getElementById('company-orders-list');
+        const financialOverview = document.getElementById('company-balance');
+        const companyId = localStorage.getItem('company_id');
+        const userRole = localStorage.getItem('userRole');
 
-    if (!companyId) {
-        if (availableOrdersList) {
-            availableOrdersList.innerHTML = '<p>Company ID not found. Please log in again.</p>';
+        if (!companyId) {
+            if (availableOrdersList) {
+                availableOrdersList.innerHTML = '<p>Company ID not found. Please log in again.</p>';
+            }
+            return;
         }
-        return;
+
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/api/orders/available_orders?company_id=${companyId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch company orders');
+            }
+            const data = await response.json();
+            const orders = Array.isArray(data) ? data : data.orders;
+
+            if (Array.isArray(orders) && availableOrdersList) {
+                availableOrdersList.innerHTML = '<ul>' + orders.map(order =>
+                    `<li>
+                        From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                        (Created: ${order.created_at})
+                        <button class="btn-delete-order" data-order-id="${order.order_id}">Delete</button>
+                    </li>`
+                ).join('') + '</ul>';
+
+                // Add event listeners for delete buttons
+                availableOrdersList.querySelectorAll('.btn-delete-order').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const orderId = e.target.dataset.orderId;
+                        if (confirm('Are you sure you want to delete this order?')) {
+                            try {
+                                const res = await fetch(`http://127.0.0.1:5000/api/orders/delete_order/${orderId}`, {
+                                    method: 'DELETE'
+                                });
+                                if (res.ok) {
+                                    alert('Order deleted.');
+                                    e.target.closest('li').remove();
+                                } else {
+                                    const err = await res.json();
+                                    alert('Failed to delete order: ' + (err.error || 'Unknown error'));
+                                }
+                            } catch (err) {
+                                alert('Error deleting order.');
+                            }
+                        }
+                    });
+                });
+            } else if (availableOrdersList) {
+                availableOrdersList.innerHTML = '<p>No orders found.</p>';
+            }
+        } catch (error) {
+            console.error('Failed to fetch company orders:', error);
+            if (availableOrdersList) {
+                availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
+            }
+        }
     }
-
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/api/companies/available_orders?company_id=${companyId}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch company orders');
-        }
-        const data = await response.json();
-        const orders = Array.isArray(data) ? data : data.orders; // Support both array and {orders: [...]}
-
-        if (Array.isArray(orders) && availableOrdersList) {
-            availableOrdersList.innerHTML = '<ul>' + orders.map(order =>
-                `<li>
-                    From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
-                    (Created: ${order.created_at})
-                    <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
-                </li>`
-            ).join('') + '</ul>';
-        } else if (availableOrdersList) {
-            availableOrdersList.innerHTML = '<p>No orders found.</p>';
-        }
-    } catch (error) {
-        console.error('Failed to fetch company orders:', error);
-        if (availableOrdersList) {
-            availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
-        }
-    }
-}
-
-    // function populateCompanyDashboard() {
-    //     const ordersList = document.getElementById('company-orders-list');
-    //     const balanceEl = document.getElementById('company-balance');
-
-    //     if (ordersList) {
-    //         // Mock data for company orders
-    //         const orders = [
-    //             { id: 'ORD001', item: 'Package A', status: 'Pending Pickup', deliverer: 'N/A', fee: 50 },
-    //             { id: 'ORD002', item: 'Documents B', status: 'In Transit', deliverer: 'John D.', fee: 30 },
-    //             { id: 'ORD003', item: 'Electronics C', status: 'Delivered', deliverer: 'Jane S.', fee: 75 },
-    //             { id: 'ORD004', item: 'Groceries D', status: 'Pending Pickup', deliverer: 'N/A', fee: 40 }
-    //         ];
-    //         ordersList.innerHTML = '<ul>' + orders.map(order => 
-    //             `<li><strong>${order.id}</strong>: ${order.item} - <em>${order.status}</em> (Deliverer: ${order.deliverer}) - Fee: $${order.fee}</li>`
-    //         ).join('') + '</ul>';
-    //     }
-    //     if (balanceEl) {
-    //         // Mock calculation for balance
-    //         const deliveredOrdersFee = 105; // Sum of ORD003 for example
-    //         balanceEl.textContent = `$${deliveredOrdersFee.toFixed(2)}`;
-    //     }
-    // }
 
     async function populateDelivererDashboard() {
-    const availableOrdersList = document.getElementById('available-orders-list');
-    const inventoryList = document.getElementById('deliverer-inventory-list');
-    const balanceEl = document.getElementById('deliverer-balance');
+        const availableOrdersList = document.getElementById('available-orders-list');
+        const inventoryList = document.getElementById('deliverer-inventory-list');
+        const balanceEl = document.getElementById('deliverer-balance');
 
-    try {
-        const response = await fetch('http://127.0.0.1:5000/api/orders/unassigned');
-        const availableOrders = await response.json();
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/orders/unassigned');
+            const availableOrders = await response.json();
 
-        if (Array.isArray(availableOrders) && availableOrdersList) {
-            availableOrdersList.innerHTML = '<ul>' + availableOrders.map(order =>
-                `<li>
-                    From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
-                    (Created: ${order.created_at})
-                    <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
-                </li>`
-            ).join('') + '</ul>';
+            if (Array.isArray(availableOrders) && availableOrdersList) {
+                availableOrdersList.innerHTML = '<ul>' + availableOrders.map(order =>
+                    `<li>
+                        From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                        (Created: ${order.created_at})
+                        <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
+                    </li>`
+                ).join('') + '</ul>';
 
-            availableOrdersList.querySelectorAll('.btn-accept-order').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const orderId = e.target.dataset.orderId;
+                availableOrdersList.querySelectorAll('.btn-accept-order').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const orderId = e.target.dataset.orderId;
 
-                    const courierId = localStorage.getItem('courier_id');
-                    if (!courierId) {
-                        alert('Courier ID not found. Please log in again.');
-                        return;
-                    }
-                    const res = await fetch('http://127.0.0.1:5000/api/orders/assign_courier', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            order_id: Number(orderId),
-                            courier_id: Number(courierId),
-                        })
-                    });
-
-                    if (!res.ok) {
-                        alert('Failed to assign order.');
-                        return;
-                    }
-
-                    alert(`Order ${orderId} accepted!`);
-                    e.target.closest('li').remove();
-
-                    const acceptedOrder = availableOrders.find(o => o.order_id == orderId);
-                    if (acceptedOrder && inventoryList) {
-                        const inventoryItem = document.createElement('li');
-                        inventoryItem.textContent = `Order #${acceptedOrder.order_id} - Status: Assigned`;
-
-                        if (inventoryList.querySelector('p')) {
-                            inventoryList.innerHTML = '<ul></ul>';
+                        const courierId = localStorage.getItem('courier_id');
+                        if (!courierId) {
+                            alert('Courier ID not found. Please log in again.');
+                            return;
                         }
-                        inventoryList.querySelector('ul')?.appendChild(inventoryItem);
-                    }
-                });
-            });
-        }
+                        const res = await fetch('http://127.0.0.1:5000/api/orders/assign_courier', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                order_id: Number(orderId),
+                                courier_id: Number(courierId),
+                            })
+                        });
 
-        if (balanceEl) {
-            const earnings = 0; // Placeholder for now
-            balanceEl.textContent = `$${earnings.toFixed(2)}`;
-        }
-    } catch (error) {
-        console.error('Failed to fetch available orders:', error);
-        if (availableOrdersList) {
-            availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
+                        if (!res.ok) {
+                            alert('Failed to assign order.');
+                            return;
+                        }
+
+                        alert(`Order ${orderId} accepted!`);
+                        e.target.closest('li').remove();
+
+                        const acceptedOrder = availableOrders.find(o => o.order_id == orderId);
+                        if (acceptedOrder && inventoryList) {
+                            const inventoryItem = document.createElement('li');
+                            inventoryItem.textContent = `Order #${acceptedOrder.order_id} - Status: Assigned`;
+
+                            if (inventoryList.querySelector('p')) {
+                                inventoryList.innerHTML = '<ul></ul>';
+                            }
+                            inventoryList.querySelector('ul')?.appendChild(inventoryItem);
+                        }
+                    });
+                });
+            }
+
+            if (balanceEl) {
+                const earnings = 0; // Placeholder for now
+                balanceEl.textContent = `$${earnings.toFixed(2)}`;
+            }
+        } catch (error) {
+            console.error('Failed to fetch available orders:', error);
+            if (availableOrdersList) {
+                availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
+            }
         }
     }
-}
-
-
-    
 
     // Hamburger menu toggle
     if (hamburgerMenu && sidebar) {
@@ -405,10 +405,55 @@ document.addEventListener('DOMContentLoaded', () => {
             displayDashboardContent(userRole);
         }
     }
+
+    // --- CREATE ORDER BUTTON LOGIC ---
+    const showCreateOrderBtn = document.getElementById('show-create-order-form');
+    const createOrderForm = document.getElementById('create-order-form');
+    const companyIdInput = document.getElementById('company-id');
+    const pickupInput = document.getElementById('pickup-address');
+    const deliveryInput = document.getElementById('delivery-address');
+
+    if (showCreateOrderBtn && createOrderForm) {
+        showCreateOrderBtn.addEventListener('click', () => {
+            createOrderForm.style.display = createOrderForm.style.display === 'none' ? 'block' : 'none';
+        });
+
+        createOrderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const companyId = companyIdInput.value.trim();
+            const pickup_address = pickupInput.value.trim();
+            const delivery_address = deliveryInput.value.trim();
+
+            if (!companyId || !pickup_address || !delivery_address) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        company_id: Number(companyId),
+                        pickup_address,
+                        delivery_address
+                    })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Order created!');
+                    createOrderForm.reset();
+                    createOrderForm.style.display = 'none';
+                    if (typeof populateCompanyDashboard === 'function') {
+                        populateCompanyDashboard();
+                    }
+                } else {
+                    alert(data.error || 'Failed to create order.');
+                }
+            } catch (err) {
+                alert('Error creating order.');
+                console.error(err);
+            }
+        });
+    }
 });
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-
-})

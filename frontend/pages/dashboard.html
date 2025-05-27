@@ -45,6 +45,16 @@
                 <h2>Company Dashboard</h2>
                 <div class="dashboard-section">
                     <h3>Order Management</h3>
+                    <!-- Place the create order section here, above the order list -->
+                    <div id="create-order-section" style="margin-bottom: 1em;">
+                        <button id="show-create-order-form" type="button">Create Order</button>
+                        <form id="create-order-form" style="display:none; margin-top:10px;">
+                            <input type="text" id="company-id" placeholder="Company ID" required />
+                            <input type="text" id="pickup-address" placeholder="Pickup Address" required />
+                            <input type="text" id="delivery-address" placeholder="Delivery Address" required />
+                            <button type="submit">Submit Order</button>
+                        </form>
+                    </div>
                     <div id="company-orders-list">
                         <!-- Orders will be listed here by JS -->
                         <p>Loading orders...</p>
