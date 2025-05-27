@@ -94,13 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Company registration form handling
+// Company registration form handling
 if (companyRegisterForm) {
     companyRegisterForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = companyRegisterForm.name.value; // Changed from 'name' to 'username' to match form field
+        const name = companyRegisterForm.name.value;
         const address = companyRegisterForm.address.value;
-        const email = companyRegisterForm.company_email.value; // Changed to match form field name
+        const email = companyRegisterForm.company_email.value;
         const password = companyRegisterForm.password.value;
         const confirmPassword = companyRegisterForm.confirmPassword.value;
         const userType = 'company';
@@ -115,29 +115,29 @@ if (companyRegisterForm) {
         localStorage.setItem('userRole', userType);
         localStorage.setItem('username', name);
         localStorage.setItem('email', email);
-        
+
         // If integrating with backend API
-        const url = 'https://droply-backend.onrender.com/api/companies';
+        const url = 'http://127.0.0.1:5000/api/companies';
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: name, // Changed from 'username' to 'name' to match backend expectation
+                name: name,
                 address: address,
-                company_email: email, // Changed to match backend expectation
+                company_email: email,
                 password: password
             })
         })
-        .then(response => {
-            if (response.ok) {
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(({ status, body }) => {
+            if ((status === 201 || status === 200) && body.company_id) {
+                localStorage.setItem('company_id', body.company_id); // Save company_id
                 alert('Company registration successful! Redirecting to dashboard...');
                 window.location.href = 'dashboard.html';
             } else {
-                response.json().then(err => {
-                    alert(`Registration failed: ${err.error || 'Unknown error'}`);
-                });
+                alert(`Registration failed: ${body.error || 'Unknown error'}`);
             }
         })
         .catch(error => {
@@ -177,7 +177,7 @@ if (companyRegisterForm) {
             localStorage.setItem('vehicleType', vehicleType);
             
             // If integrating with backend API
-            const url = 'https://droply-backend.onrender.com/api/couriers';
+            const url = 'http://127.0.0.1:5000/api/couriers';
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -190,19 +190,19 @@ if (companyRegisterForm) {
                     password: password
                 })
             })
-            .then(response => {
-                if (response.ok) {
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(({ status, body }) => {
+                if (status === 201 && body.courier_id) {
+                    localStorage.setItem('courier_id', body.courier_id);
                     alert('Driver registration successful! Redirecting to dashboard...');
                     window.location.href = 'dashboard.html';
                 } else {
-                    alert('Registration failed. Please try again.');
+                    alert(`Registration failed: ${body.error || 'Unknown error'}`);
                 }
             })
             .catch(error => {
                 console.error('Registration error:', error);
-                // Fallback for demo/testing if API is not available
-                // alert('Driver registration successful! (Demo mode) Redirecting to dashboard...');
-                // window.location.href = 'dashboard.html';
+                alert('Error during registration. Please try again later.');
             });
         });
     }

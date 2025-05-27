@@ -250,79 +250,140 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function populateCompanyDashboard() {
-        const ordersList = document.getElementById('company-orders-list');
-        const balanceEl = document.getElementById('company-balance');
+    async function populateCompanyDashboard() {
+    const availableOrdersList = document.getElementById('company-orders-list');
+    const financialOverview = document.getElementById('company-balance');
+    const companyId = localStorage.getItem('company_id');
 
-        if (ordersList) {
-            // Mock data for company orders
-            const orders = [
-                { id: 'ORD001', item: 'Package A', status: 'Pending Pickup', deliverer: 'N/A', fee: 50 },
-                { id: 'ORD002', item: 'Documents B', status: 'In Transit', deliverer: 'John D.', fee: 30 },
-                { id: 'ORD003', item: 'Electronics C', status: 'Delivered', deliverer: 'Jane S.', fee: 75 },
-                { id: 'ORD004', item: 'Groceries D', status: 'Pending Pickup', deliverer: 'N/A', fee: 40 }
-            ];
-            ordersList.innerHTML = '<ul>' + orders.map(order => 
-                `<li><strong>${order.id}</strong>: ${order.item} - <em>${order.status}</em> (Deliverer: ${order.deliverer}) - Fee: $${order.fee}</li>`
-            ).join('') + '</ul>';
+    if (!companyId) {
+        if (availableOrdersList) {
+            availableOrdersList.innerHTML = '<p>Company ID not found. Please log in again.</p>';
         }
-        if (balanceEl) {
-            // Mock calculation for balance
-            const deliveredOrdersFee = 105; // Sum of ORD003 for example
-            balanceEl.textContent = `$${deliveredOrdersFee.toFixed(2)}`;
-        }
+        return;
     }
 
-    function populateDelivererDashboard() {
-        const availableOrdersList = document.getElementById('available-orders-list');
-        const inventoryList = document.getElementById('deliverer-inventory-list');
-        const balanceEl = document.getElementById('deliverer-balance');
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/api/companies/available_orders?company_id=${companyId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch company orders');
+        }
+        const data = await response.json();
+        const orders = Array.isArray(data) ? data : data.orders; // Support both array and {orders: [...]}
 
-        if (availableOrdersList) {
-            // Mock data for available orders
-            const availableOrders = [
-                { id: 'ORD101', item: 'Small Parcel', pickup: '123 Main St', destination: '456 Oak Ave', payout: 20 },
-                { id: 'ORD102', item: 'Food Delivery', pickup: 'Restaurant Z', destination: '789 Pine Rd', payout: 15 },
-                { id: 'ORD103', item: 'Urgent Documents', pickup: 'Office A', destination: 'Client B', payout: 25 }
-            ];
-            availableOrdersList.innerHTML = '<ul>' + availableOrders.map(order => 
-                `<li><strong>${order.id}</strong>: ${order.item} (From: ${order.pickup} To: ${order.destination}) - Payout: $${order.payout} <button class="btn-accept-order" data-order-id="${order.id}">Accept</button></li>`
+        if (Array.isArray(orders) && availableOrdersList) {
+            availableOrdersList.innerHTML = '<ul>' + orders.map(order =>
+                `<li>
+                    From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                    (Created: ${order.created_at})
+                    <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
+                </li>`
             ).join('') + '</ul>';
-            
-            // Add event listeners for accept buttons (basic example)
+        } else if (availableOrdersList) {
+            availableOrdersList.innerHTML = '<p>No orders found.</p>';
+        }
+    } catch (error) {
+        console.error('Failed to fetch company orders:', error);
+        if (availableOrdersList) {
+            availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
+        }
+    }
+}
+
+    // function populateCompanyDashboard() {
+    //     const ordersList = document.getElementById('company-orders-list');
+    //     const balanceEl = document.getElementById('company-balance');
+
+    //     if (ordersList) {
+    //         // Mock data for company orders
+    //         const orders = [
+    //             { id: 'ORD001', item: 'Package A', status: 'Pending Pickup', deliverer: 'N/A', fee: 50 },
+    //             { id: 'ORD002', item: 'Documents B', status: 'In Transit', deliverer: 'John D.', fee: 30 },
+    //             { id: 'ORD003', item: 'Electronics C', status: 'Delivered', deliverer: 'Jane S.', fee: 75 },
+    //             { id: 'ORD004', item: 'Groceries D', status: 'Pending Pickup', deliverer: 'N/A', fee: 40 }
+    //         ];
+    //         ordersList.innerHTML = '<ul>' + orders.map(order => 
+    //             `<li><strong>${order.id}</strong>: ${order.item} - <em>${order.status}</em> (Deliverer: ${order.deliverer}) - Fee: $${order.fee}</li>`
+    //         ).join('') + '</ul>';
+    //     }
+    //     if (balanceEl) {
+    //         // Mock calculation for balance
+    //         const deliveredOrdersFee = 105; // Sum of ORD003 for example
+    //         balanceEl.textContent = `$${deliveredOrdersFee.toFixed(2)}`;
+    //     }
+    // }
+
+    async function populateDelivererDashboard() {
+    const availableOrdersList = document.getElementById('available-orders-list');
+    const inventoryList = document.getElementById('deliverer-inventory-list');
+    const balanceEl = document.getElementById('deliverer-balance');
+
+    try {
+        const response = await fetch('http://127.0.0.1:5000/api/orders/unassigned');
+        const availableOrders = await response.json();
+
+        if (Array.isArray(availableOrders) && availableOrdersList) {
+            availableOrdersList.innerHTML = '<ul>' + availableOrders.map(order =>
+                `<li>
+                    From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                    (Created: ${order.created_at})
+                    <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
+                </li>`
+            ).join('') + '</ul>';
+
             availableOrdersList.querySelectorAll('.btn-accept-order').forEach(button => {
-                button.addEventListener('click', (e) => {
+                button.addEventListener('click', async (e) => {
                     const orderId = e.target.dataset.orderId;
-                    alert(`Order ${orderId} accepted! (This is a mock action)`);
-                    // In a real app, move this order to inventory and update backend
-                    e.target.closest('li').remove(); // Remove from available list
-                    // Add to inventory (mock)
-                    const acceptedOrder = availableOrders.find(o => o.id === orderId);
+
+                    const courierId = localStorage.getItem('courier_id');
+                    if (!courierId) {
+                        alert('Courier ID not found. Please log in again.');
+                        return;
+                    }
+                    const res = await fetch('http://127.0.0.1:5000/api/orders/assign_courier', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            order_id: Number(orderId),
+                            courier_id: Number(courierId),
+                        })
+                    });
+
+                    if (!res.ok) {
+                        alert('Failed to assign order.');
+                        return;
+                    }
+
+                    alert(`Order ${orderId} accepted!`);
+                    e.target.closest('li').remove();
+
+                    const acceptedOrder = availableOrders.find(o => o.order_id == orderId);
                     if (acceptedOrder && inventoryList) {
                         const inventoryItem = document.createElement('li');
-                        inventoryItem.textContent = `${acceptedOrder.item} - Status: Accepted (Waiting for pickup)`;
-                        if (inventoryList.querySelector('p')) { // Remove 'No orders' message
+                        inventoryItem.textContent = `Order #${acceptedOrder.order_id} - Status: Assigned`;
+
+                        if (inventoryList.querySelector('p')) {
                             inventoryList.innerHTML = '<ul></ul>';
                         }
-                        inventoryList.querySelector('ul').appendChild(inventoryItem);
+                        inventoryList.querySelector('ul')?.appendChild(inventoryItem);
                     }
                 });
             });
         }
 
-        if (inventoryList) {
-            // Mock data for deliverer's inventory (initially empty or loaded from storage)
-            // For now, it's populated by accepting orders above.
-            // If you want initial items: 
-            // inventoryList.innerHTML = '<ul><li>Sample Accepted Order 1 - Status: In Transit</li></ul>';
-        }
-
         if (balanceEl) {
-            // Mock calculation for balance
-            const earnings = 0; // Example, would be calculated from completed deliveries
+            const earnings = 0; // Placeholder for now
             balanceEl.textContent = `$${earnings.toFixed(2)}`;
         }
+    } catch (error) {
+        console.error('Failed to fetch available orders:', error);
+        if (availableOrdersList) {
+            availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
+        }
     }
+}
+
+
+    
 
     // Hamburger menu toggle
     if (hamburgerMenu && sidebar) {
@@ -345,3 +406,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+})
