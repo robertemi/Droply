@@ -51,7 +51,7 @@
 
 .tracking-form input {
     width: 100%;
-    padding: 14px 20px;
+    padding: 14px 5px;
     border: none;
     border-radius: 6px;
     font-size: 1rem;
@@ -59,8 +59,9 @@
 }
 
 .tracking-form button {
-    padding: 14px 25px;
+    padding: 10px 30px;
     white-space: nowrap;
+    align-self: last baseline;
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -72,7 +73,7 @@
 
 .tracking-form button:hover {
     background-color: #005a4f;
-    transform: translateY(-2px);
+    transform: translateY(0px);
 }
 
 /* Tracking results section */

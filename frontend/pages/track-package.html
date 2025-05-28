@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/transitions.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../css/track-package.css">
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfFN8NuvYyNkewBVMsk9ZNIcUWDEqHg2U"></script>
 </head>
 <body>
     <header class="site-header">
@@ -130,10 +132,7 @@
                 
                 <div class="tracking-map-container">
                     <h3>Live Package Location</h3>
-                    <div class="tracking-map" id="package-map">
-                        <img src="../img/track.png" alt="Package tracking map" class="map-placeholder">
-                        <!-- Will be replaced with actual map integration -->
-                    </div>
+                    <div id="tracking-map" class="tracking-map"></div>
                 </div>
                 
                 <div class="tracking-details">
@@ -270,10 +269,9 @@
         <section class="cta-section">
             <div class="container">
                 <h2>Need to Send a Package?</h2>
-                <p>Use our services for fast, reliable package delivery across Romania.</p>
+                <p>Use our services for fast, reliable package delivery across Romania.</p>                    
                 <div class="cta-buttons">
-                    <a href="register.html?type=company" class="button primary-button">Send a Package</a>
-                    <a href="pricing.html" class="button secondary-button">View Pricing</a>
+                    <a href="register.html?type=company" class="btn btn-cta-primary">Send a Package</a>
                 </div>
             </div>
         </section>
