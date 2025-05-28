@@ -57,10 +57,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Redirect based on role
                 if (selectedRole === 'company') {
-                    window.location.href = 'dashboard.html';
-                    
-                } else if (selectedRole === 'driver') {
-                    window.location.href = 'driver-dashboard.html';
+                    const url = 'http://127.0.0.1:5000/api/companies/log_in'
+                    fetch(url,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+
+                        },
+                        body: JSON.stringify({
+                            company_email: email,
+                            password: password
+                        })
+                    })
+                    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+                    .then(({ status, body }) => {
+                        if (status === 200 & body.success){
+                            localStorage.setItem('company_id', body.company_id);
+                            alert('Company login successful! Redirecting to dashboard...');
+                            window.location.href = 'dashboard.html';
+                        }else {
+                            alert(`Registration failed: ${body.error || 'Unknown error'}`);
+                        }
+                    })
+                    .catch(error => {
+                    console.error('Registration error:', error);
+                    alert('Error during registration. Please try again later.');
+                    });                     
+                } else if (selectedRole === 'deliverer') {
+                    const url = 'http://127.0.0.1:5000/api/couriers/log_in'
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            courier_email: email,
+                            password: password
+                        })
+                    })
+                    .then(response => response.json().then(data => ({ status: response.status, body: data})))
+                    .then(({ status, body }) => {
+                        if (status === 200 & body.success){
+                            localStorage.setItem('courier_id', body.courier_id);
+                            alert('Courier login successful! Redirecting to dashboard...');
+                            window.location.href = 'dashboard.html';
+                        }else{
+                            alert(`Registration failed: ${body.error || 'Unknown error'}`);
+                        }
+                    })
+                    .catch(error => {
+                    console.error('Registration error:', error);
+                    alert('Error during registration. Please try again later.');
+                    });
                 }
             }
         });
@@ -120,7 +168,7 @@ if (companyRegisterForm) {
         localStorage.setItem('email', email);
 
         // If integrating with backend API
-        const url = 'https://droply-backend.onrender.com/api/companies';
+        const url = 'http://127.0.0.1:5000/api/companies';
         fetch(url, {
             method: 'POST',
             headers: {
@@ -180,7 +228,7 @@ if (companyRegisterForm) {
             localStorage.setItem('vehicleType', vehicleType);
             
             // If integrating with backend API
-            const url = 'https://droply-backend.onrender.com/api/couriers';
+            const url = 'http://127.0.0.1:5000/api/couriers';
             fetch(url, {
                 method: 'POST',
                 headers: {
