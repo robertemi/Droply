@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - Droply</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="container header-flex">
+            <div class="logo-dash">Droply Driver Dashboard</div>
+            <nav class="dashboard-nav">
+                <ul id="nav-links">
+                    <!-- Links will be populated by JS -->
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="theme-toggle-button" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun" style="display:none;">☀️</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container dashboard-main">
+        <aside class="sidebar" id="sidebar">
+            <h3>Navigation</h3>
+            <ul id="sidebar-links">
+                <!-- Sidebar links will be populated by JS -->
+            </ul>
+            <button id="logout-button" class="btn btn-logout">Logout</button>
+        </aside>
+
+        <section class="dashboard-content" id="dashboard-content">
+            <h1 id="welcome-message">Welcome to your Driver Dashboard</h1>
+            <p id="role-specific-intro">Manage your deliveries and track your earnings.</p>
+
+            <div class="dashboard-view">
+                <div class="dashboard-section">
+                    <h3>Active Deliveries</h3>
+                    <div id="active-deliveries-list">
+                        <!-- Active deliveries will be listed here by JS -->
+                        <p>Loading active deliveries...</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Available Orders</h3>
+                    <div id="available-orders-list">
+                        <!-- Available orders will be listed here by JS -->
+                        <p>Loading available orders...</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>My Earnings</h3>
+                    <p>Total Earnings: <span id="driver-balance">$0.00</span></p>
+                    <div id="earnings-chart">
+                        <!-- Earnings chart will be added here by JS -->
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Performance Stats</h3>
+                    <div id="performance-stats">
+                        <p>Completed Deliveries: <span id="completed-deliveries">0</span></p>
+                        <p>On-time Delivery Rate: <span id="on-time-rate">0%</span></p>
+                        <p>Customer Rating: <span id="customer-rating">N/A</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="dashboard-footer">
+        <p>&copy; <span id="current-year"></span> Droply. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
