@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
                     .then(response => response.json().then(data => ({ status: response.status, body: data })))
                     .then(({ status, body }) => {
-                        if (status === 200 & body.success){
+                        if (status === 200 && body.success){
                             localStorage.setItem('company_id', body.company_id);
                             alert('Company login successful! Redirecting to dashboard...');
                             window.location.href = 'dashboard.html';
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
                     .then(response => response.json().then(data => ({ status: response.status, body: data})))
                     .then(({ status, body }) => {
-                        if (status === 200 & body.success){
+                        if (status === 200 && body.success){
                             localStorage.setItem('courier_id', body.courier_id);
                             alert('Courier login successful! Redirecting to dashboard...');
                             window.location.href = 'dashboard.html';
