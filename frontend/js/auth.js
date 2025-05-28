@@ -39,27 +39,30 @@ document.addEventListener('DOMContentLoaded', () => {
     setupLogout();
 
     const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-
+    const registerForm = document.getElementById('registerForm');    // Handle login form submission
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simulate login - in a real app, you'd validate credentials
-            const email = loginForm.email.value;
-            // For now, we'll just set a mock role. 
-            // A real app would fetch this after validating credentials.
-            // We'll try to retrieve the role registered, or default to 'company' for direct logins for now.
-            let userRole = localStorage.getItem('userRole'); // Get role if previously registered
-            if (!userRole && email.includes('deliverer')) { // Simple mock logic
-                userRole = 'deliverer';
-            } else if (!userRole) {
-                userRole = 'company'; // Default mock role
-            }
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const selectedRole = document.getElementById('userRole').value;
             
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userRole', userRole); // Store the determined/retrieved role
-            alert('Login successful! Redirecting to dashboard...');
-            window.location.href = 'dashboard.html'; 
+            // Store the role along with other login info
+            localStorage.setItem('userRole', selectedRole);
+            
+            // Here you would typically make an API call to verify credentials
+            if (email && password) {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                
+                // Redirect based on role
+                if (selectedRole === 'company') {
+                    window.location.href = 'dashboard.html';
+                    
+                } else if (selectedRole === 'driver') {
+                    window.location.href = 'driver-dashboard.html';
+                }
+            }
         });
     }    // Handle registration form tabs and submissions
     const companyTab = document.getElementById('companyTab');
@@ -117,7 +120,7 @@ if (companyRegisterForm) {
         localStorage.setItem('email', email);
 
         // If integrating with backend API
-        const url = 'http://127.0.0.1:5000/api/companies';
+        const url = 'https://droply-backend.onrender.com/api/companies';
         fetch(url, {
             method: 'POST',
             headers: {
@@ -177,7 +180,7 @@ if (companyRegisterForm) {
             localStorage.setItem('vehicleType', vehicleType);
             
             // If integrating with backend API
-            const url = 'http://127.0.0.1:5000/api/couriers';
+            const url = 'https://droply-backend.onrender.com/api/couriers';
             fetch(url, {
                 method: 'POST',
                 headers: {

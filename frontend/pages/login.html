@@ -31,6 +31,12 @@
             <h1 class="login-main-title">Hello,
                 Welcome back!
             </h1>
+            <div class="role-selector">
+                <select id="userRole" name="userRole" class="role-select">
+                    <option value="company">Company</option>
+                    <option value="driver">Driver</option>
+                </select>
+            </div>
             <form id="loginForm">
                 <div class="form-group">
                     <input type="text" id="email" name="email" placeholder="Email address" required>
@@ -38,6 +44,7 @@
                 <div class="form-group">
                     <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
+               
                 <button type="submit" class="btn btn-login">Sign in</button>
             </form>
             <p class="auth-switch">Don't have an account? <a href="register.html">Sign up</a></p>
