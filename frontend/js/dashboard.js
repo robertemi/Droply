@@ -51,25 +51,10 @@ function setupSidebarLinks() {
 function updateNavLinks() {
     const navLinks = document.getElementById('nav-links');
     const userRole = localStorage.getItem('userRole');
-    
-    // Clear existing links
+      // Clear existing links
     navLinks.innerHTML = '';
     
-    // Home link
-    const homeLi = document.createElement('li');
-    homeLi.innerHTML = '<a href="../index.html">Home</a>';
-    navLinks.appendChild(homeLi);
-      // How It Works link
-    const howItWorksLi = document.createElement('li');
-    howItWorksLi.innerHTML = '<a href="how-it-works.html">How It Works</a>';
-    navLinks.appendChild(howItWorksLi);
-    
-    // Pricing link
-    const pricingLi = document.createElement('li');
-    pricingLi.innerHTML = '<a href="pricing.html">Pricing</a>';
-    navLinks.appendChild(pricingLi);
-    
-    // Track Package link
+    // Only show Track Package link in dashboard
     const trackPackageLi = document.createElement('li');
     trackPackageLi.innerHTML = '<a href="track-package.html">Track Package</a>';
     navLinks.appendChild(trackPackageLi);
@@ -172,9 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarLinks.innerHTML = ''; // Clear existing links
 
         const commonLinks = [
-            { text: 'Home', href: 'dashboard.html' },
-            { text: 'How It Works', href: 'how-it-works.html' },
-            { text: 'Pricing', href: 'pricing.html' },
+            { text: 'Dashboard', href: 'dashboard.html' },
             { text: 'Profile', href: '#' }, // Placeholder
             { text: 'Settings', href: '#' }  // Placeholder
         ];
