@@ -228,10 +228,47 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get form data
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
             
-            // Show success message (in a real app, you'd send the data to a server)
-            alert(`Thank you, ${name}! Our sales team will contact you at ${email} shortly.`);
-            contactForm.reset();
+            // Construct email body
+            const emailBody = `Name: ${name}
+                            Company: ${company}
+                            Phone: ${phone}
+                            Email: ${email}
+                            Message: ${message}
+`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:droply55@gmail.com?subject=Custom Solution Request - ${company}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Create a success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = `
+                <div class="success-content">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Thank you for your interest!</h3>
+                    <p>Your email client will open to send your request.</p>
+                    <p>If it doesn't open automatically, <a href="${mailtoLink}">click here</a>.</p>
+                </div>
+            `;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Clear the form
+            this.reset();
+            
+            // Show success message
+            const formContainer = this.parentElement;
+            formContainer.appendChild(successMessage);
+            
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+                successMessage.remove();
+            }, 5000);
         });
     }
 });

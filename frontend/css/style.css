@@ -404,6 +404,200 @@ body {
     color: #888;
 }
 
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 50px 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 30px;
+    padding-right: 20px;
+}
+
+.footer-section h4 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #40E0D0;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #40E0D0;
+}
+
+.copyright {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+/* Dark theme footer adjustments */
+.dark-theme footer {
+    background-color: #1f242d;
+}
+
+.dark-theme .footer-section a:hover {
+    color: #40E0D0;
+}
+
+.dark-theme .footer-section a {
+    color: #b0b0b0;
+}
+
+/* --- Support Button and Popup Styles */
+.support-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #40E0D0;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.support-btn:hover {
+    transform: translateY(-2px);
+}
+
+.support-btn i {
+    font-size: 1.2em;
+}
+
+.support-popup {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 20px;
+    z-index: 1000;
+}
+
+.support-popup.active {
+    display: block;
+    animation: slideUp 0.3s ease-out;
+}
+
+.support-popup textarea {
+    width: 100%;
+    height: 150px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+.support-popup button {
+    width: 100%;
+    padding: 10px;
+    background-color: #40E0D0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.support-popup button:hover {
+    background-color: #3bcdc0;
+}
+
+.support-popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #666;
+    padding: 5px;
+}
+
+.support-popup .close-btn:hover {
+    color: #333;
+}
+
+/* Dark theme support */
+.dark-theme .support-popup {
+    background-color: #2c3e50;
+    color: #e0e0e0;
+}
+
+.dark-theme .support-popup textarea {
+    background-color: #1a1e25;
+    border-color: #4a6572;
+    color: #e0e0e0;
+}
+
+.dark-theme .support-popup .close-btn {
+    color: #b0b0b0;
+}
+
+.dark-theme .support-popup .close-btn:hover {
+    color: #e0e0e0;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
     .hero-content {

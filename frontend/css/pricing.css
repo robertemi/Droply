@@ -546,6 +546,71 @@
     transform: translateY(20px);
 }
 
+/* Success message styles */
+.success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.success-message i {
+    font-size: 3rem;
+    color: #40E0D0;
+}
+
+.success-message h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.success-message p {
+    color: #666;
+    margin: 0;
+}
+
+.success-message a {
+    color: #40E0D0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.success-message a:hover {
+    text-decoration: underline;
+}
+
+/* Dark theme adjustments */
+.dark-theme .success-message {
+    background-color: #2c3e50;
+}
+
+.dark-theme .success-message h3 {
+    color: #e0e0e0;
+}
+
+.dark-theme .success-message p {
+    color: #b0b0b0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
 /* Dark theme support */
 :root {
     --bg-color: #ffffff;
