@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Redirect based on role
                 if (selectedRole === 'company') {
-                    const url = 'http://127.0.0.1:5000/api/companies/log_in'
+                    const url = 'https://droply-backend.onrender.com/api/companies/log_in'
                     fetch(url,{
                         method: 'POST',
                         headers: {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('Error during registration. Please try again later.');
                     });                     
                 } else if (selectedRole === 'deliverer') {
-                    const url = 'http://127.0.0.1:5000/api/couriers/log_in'
+                    const url = 'https://droply-backend.onrender.com/api/couriers/log_in'
                     fetch(url, {
                         method: 'POST',
                         headers: {
@@ -168,7 +168,7 @@ if (companyRegisterForm) {
         localStorage.setItem('email', email);
 
         // If integrating with backend API
-        const url = 'http://127.0.0.1:5000/api/companies';
+        const url = 'https://droply-backend.onrender.com/api/companies';
         fetch(url, {
             method: 'POST',
             headers: {

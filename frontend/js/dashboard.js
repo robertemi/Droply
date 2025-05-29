@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`http://127.0.0.1:5000/api/orders/available_orders?company_id=${companyId}`);
+            const response = await fetch(`https://droply-backend.onrender.com/api/orders/available_orders?company_id=${companyId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch company orders');
             }
