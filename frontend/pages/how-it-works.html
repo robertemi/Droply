@@ -9,23 +9,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../css/how-it-works.css">
 </head>
-<body>
-    <header class="site-header">
+<body>    <header class="site-header">
         <div class="container">
             <nav class="main-nav">
-                <a href="../index.html" class="logo">Droply</a>                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="how-it-works.html" class="active">How It Works</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="track-package.html">Track Package</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html" class="cta-button">Register</a></li>
-                    <li>
-                        <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+                <a href="../index.html" class="logo">Droply</a>
+                
+                <!-- Mobile menu toggle button -->
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                
+                <!-- Navigation menu -->
+                <div class="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="how-it-works.html" class="active">How It Works</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="track-package.html">Track Package</a></li>
+                    </ul>
+                    <div class="header-controls">
+                        <div class="auth-buttons">
+                            <a href="login.html" class="btn btn-login">Log In</a>
+                            <a href="register.html" class="btn btn-signup">Sign Up</a>
+                        </div>
+                        <button id="theme-toggle" class="theme-toggle-btn" title="Toggle dark/light mode">
                             <i class="fas fa-moon"></i>
                         </button>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -95,7 +108,7 @@
                     </div>                    
                     <div class="image-content">
                         <video autoplay loop muted playsinline>
-                            <source src="../video.mp4" type="video/mp4">
+                            <source src="../video1.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -143,9 +156,11 @@
         <!-- Driver Benefits section -->
         <section class="driver-benefits">
             <div class="container">
-                <div class="content-wrapper reverse">
-                    <div class="image-content">
-                        <img src="../img/driver.png" alt="Delivery courier on a motorcycle">
+                <div class="content-wrapper reverse">                      <div class="image-content">
+                        <video autoplay loop muted playsinline>
+                            <source src="../video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div class="text-content">
                         <h2>Benefits of Being a Driver</h2>

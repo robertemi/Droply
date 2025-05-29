@@ -8,25 +8,36 @@
     <link rel="stylesheet" href="css/transitions.css">
     <!-- Consider adding a font library like Google Fonts if desired -->
 </head>
-<body>
-    <header class="site-header">
+<body>    <header class="site-header">
         <div class="container">
             <nav class="main-nav">
-                <a href="index.html" class="logo">Droply</a>                <ul class="nav-links">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="pages/how-it-works.html">How It Works</a></li>
-                    <li><a href="pages/pricing.html">Pricing</a></li>
-                    <li><a href="pages/track-package.html">Track Package</a></li>
-                </ul>
-                <div class="header-controls">
-                    <div class="auth-buttons">
-                        <a href="pages/login.html" class="btn btn-login">Log In</a>
-                        <a href="pages/register.html" class="btn btn-signup">Sign Up</a>
+                <a href="index.html" class="logo">Droply</a>
+                
+                <!-- Mobile menu toggle button -->
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                
+                <!-- Navigation menu -->
+                <div class="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="pages/how-it-works.html">How It Works</a></li>
+                        <li><a href="pages/pricing.html">Pricing</a></li>
+                        <li><a href="pages/track-package.html">Track Package</a></li>
+                    </ul>
+                    <div class="header-controls">
+                        <div class="auth-buttons">
+                            <a href="pages/login.html" class="btn btn-login">Log In</a>
+                            <a href="pages/register.html" class="btn btn-signup">Sign Up</a>
+                        </div>
+                        <button id="theme-toggle-button" class="theme-toggle-btn" title="Toggle theme">
+                            <span class="icon-moon">🌙</span>
+                            <span class="icon-sun" style="display:none;">☀️</span>
+                        </button>
                     </div>
-                    <button id="theme-toggle-button" class="theme-toggle-btn" title="Toggle theme">
-                        <span class="icon-moon">🌙</span>
-                        <span class="icon-sun" style="display:none;">☀️</span>
-                    </button>
                 </div>
             </nav>
         </div>

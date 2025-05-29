@@ -12,24 +12,36 @@
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfFN8NuvYyNkewBVMsk9ZNIcUWDEqHg2U"></script>
 </head>
-<body>
-    <header class="site-header">
+<body>    <header class="site-header">
         <div class="container">
             <nav class="main-nav">
                 <a href="../index.html" class="logo">Droply</a>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="how-it-works.html">How It Works</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="track-package.html" class="active">Track Package</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html" class="cta-button">Register</a></li>
-                    <li>
-                        <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+                
+                <!-- Mobile menu toggle button -->
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                
+                <!-- Navigation menu -->
+                <div class="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="track-package.html" class="active">Track Package</a></li>
+                    </ul>
+                    <div class="header-controls">
+                        <div class="auth-buttons">
+                            <a href="login.html" class="btn btn-login">Log In</a>
+                            <a href="register.html" class="btn btn-signup">Sign Up</a>
+                        </div>
+                        <button id="theme-toggle" class="theme-toggle-btn" title="Toggle dark/light mode">
                             <i class="fas fa-moon"></i>
                         </button>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -51,9 +63,7 @@
                     </form>
                 </div>
             </div>
-        </section>
-
-        <!-- Tracking result section (initially hidden) -->
+        </section>        <!-- Tracking result section (initially hidden) -->
         <section class="tracking-result hidden" id="tracking-result">
             <div class="container">
                 <div class="package-info">
@@ -63,42 +73,41 @@
                             <span class="detail-label">Tracking Number:</span>
                             <span id="result-tracking-number" class="detail-value">DRP-12345678-RO</span>
                         </div>
-                        <div class="detail-item">
+                        <div class="status-current">
                             <span class="detail-label">Status:</span>
-                            <span id="result-status" class="detail-value status-in-transit">In Transit</span>
+                            <span class="status-label detail-value status-in-transit">In Transit</span>
                         </div>
-                        <div class="detail-item">
+                        <div class="info-item">
+                            <span class="detail-label">Pickup Address:</span>
+                            <span class="info-value detail-value">123 Main St, New York, NY</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="detail-label">Delivery Address:</span>
+                            <span class="info-value detail-value">456 Park Ave, New York, NY</span>
+                        </div>
+                        <div class="delivery-info">
                             <span class="detail-label">Estimated Delivery:</span>
-                            <span id="result-eta" class="detail-value">May 27, 2025, 14:30</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Ship Date:</span>
-                            <span id="result-shipped" class="detail-value">May 25, 2025</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Service Type:</span>
-                            <span id="result-service" class="detail-value">Standard Delivery</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Origin:</span>
-                            <span id="result-origin" class="detail-value">Bucharest, Romania</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Destination:</span>
-                            <span id="result-destination" class="detail-value">Cluj-Napoca, Romania</span>
+                            <span class="delivery-date detail-value">May 27, 2025</span>
+                            <span class="delivery-time">by 2:30 PM</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="tracking-progress">
-                    <div class="progress-timeline">
-                        <div class="progress-step completed">
-                            <div class="step-icon"><i class="fas fa-box"></i></div>
-                            <div class="step-content">
-                                <h4>Package Processed</h4>
-                                <p>May 25, 2025, 10:15</p>
+                    <h3>Tracking Timeline</h3>
+                    <div class="status-timeline">
+                        <!-- Timeline items will be populated by JavaScript -->
+                        <div class="timeline-item active">
+                            <div class="timeline-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Order Created</h4>
+                                <p class="timeline-time">Order has been created and is being processed</p>
                             </div>
                         </div>
+                    </div>
+                </div>
                         <div class="progress-step completed">
                             <div class="step-icon"><i class="fas fa-warehouse"></i></div>
                             <div class="step-content">
@@ -179,9 +188,7 @@
                     <button id="btn-problem" class="button outline-button"><i class="fas fa-exclamation-triangle"></i> Report a Problem</button>
                 </div>
             </div>
-        </section>
-
-        <!-- No results section (initially hidden) -->
+        </section>        <!-- No results section (initially hidden) -->
         <section class="no-tracking-results hidden" id="no-tracking-results">
             <div class="container">
                 <div class="no-results-content">
@@ -189,6 +196,9 @@
                     <h2>No Package Found</h2>
                     <p>We couldn't find any package with the tracking number provided. Please check the number and try again.</p>
                     <button id="btn-try-again" class="button primary-button">Try Again</button>
+                </div>
+                <div class="error-container">
+                    <!-- Error messages will be added here by JavaScript -->
                 </div>
             </div>
         </section>

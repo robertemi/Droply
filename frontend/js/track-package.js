@@ -28,9 +28,6 @@ function initTrackingForm() {
             const trackingNumber = document.getElementById('tracking-number').value.trim();
             
             if (trackingNumber) {
-                // In a real application, you would make an API call to a backend service
-                // For now, we'll simulate a response based on the input
-                
                 // Hide both result sections
                 trackingResult.classList.add('hidden');
                 noResults.classList.add('hidden');
@@ -38,34 +35,64 @@ function initTrackingForm() {
                 // Show loading indicator
                 showLoading();
                 
-                // Simulate API call delay
-                setTimeout(() => {
-                    hideLoading();
-                    
-                    if (isValidTrackingNumber(trackingNumber)) {
-                        // Update tracking number in the result
-                        if (resultTrackingNumber) {
-                            resultTrackingNumber.textContent = trackingNumber.toUpperCase();
+                // Make real API call to backend
+                fetchTrackingData(trackingNumber)
+                    .then(data => {
+                        hideLoading();
+                        
+                        if (data && !data.error) {
+                            // Update tracking number in the result
+                            if (resultTrackingNumber) {
+                                resultTrackingNumber.textContent = trackingNumber.toUpperCase();
+                            }
+                            
+                            // Populate tracking results with real data
+                            populateTrackingResults(data);
+                            
+                            // Show results
+                            trackingResult.classList.remove('hidden');
+                            
+                            // Scroll to results
+                            trackingResult.scrollIntoView({ behavior: 'smooth' });
+                            
+                            // If user is logged in, show recent shipments
+                            if (isUserLoggedIn()) {
+                                recentShipments.classList.remove('hidden');
+                            }
+                        } else {
+                            // Show no results
+                            noResults.classList.remove('hidden');
+                            
+                            // Scroll to no results
+                            noResults.scrollIntoView({ behavior: 'smooth' });
                         }
+                    })
+                    .catch(error => {                        hideLoading();
+                        console.error('Tracking error:', error);
                         
-                        // Show results
-                        trackingResult.classList.remove('hidden');
+                        // Show enhanced error message
+                        const errorMessage = document.createElement('div');
+                        errorMessage.className = 'error-message';
+                        errorMessage.innerHTML = `
+                            <h3>Tracking Error</h3>
+                            <p>We couldn't find your package. This could be because:</p>
+                            <ul>
+                                <li>The tracking number is incorrect or doesn't exist</li>
+                                <li>There might be a temporary connection issue</li>
+                                <li>The package information hasn't been updated yet</li>
+                            </ul>
+                            <p><strong>Please check your tracking number and try again.</strong></p>
+                            <p>If the problem persists, contact customer support.</p>
+                        `;
                         
-                        // Scroll to results
-                        trackingResult.scrollIntoView({ behavior: 'smooth' });
+                        // Add error message to no results section
+                        const errorContainer = noResults.querySelector('.error-container') || noResults;
+                        errorContainer.appendChild(errorMessage);
                         
-                        // If user is logged in, show recent shipments
-                        if (isUserLoggedIn()) {
-                            recentShipments.classList.remove('hidden');
-                        }
-                    } else {
-                        // Show no results
+                        // Show no results section
                         noResults.classList.remove('hidden');
-                        
-                        // Scroll to no results
                         noResults.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 1500);
+                    });
             }
         });
     }
@@ -310,3 +337,151 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Fetch tracking data from backend API
+async function fetchTrackingData(trackingNumber) {
+    console.log('Fetching tracking data for:', trackingNumber);
+    const url = `https://droply-backend.onrender.com/api/orders/track/${trackingNumber}`;
+    console.log('Request URL:', url);
+    
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Success response data:', data);
+            return data;
+        } else if (response.status === 404) {
+            console.log('404 - Tracking number not found');
+            const errorData = await response.json();
+            console.log('Error response data:', errorData);
+            return { error: 'Tracking number not found' };
+        } else {
+            console.log('Non-OK response:', response.status);
+            const errorText = await response.text();
+            console.log('Error response text:', errorText);
+            throw new Error('Failed to fetch tracking data');
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
+    }
+}
+
+// Populate tracking results with real data
+function populateTrackingResults(trackingData) {
+    // Update tracking number
+    const trackingNumberEl = document.getElementById('result-tracking-number');
+    if (trackingNumberEl) {
+        trackingNumberEl.textContent = trackingData.tracking_number;
+    }
+
+    // Update current status
+    const statusEl = document.querySelector('.status-current .status-label');
+    if (statusEl) {
+        statusEl.textContent = trackingData.current_status || 'In Transit';
+    }
+
+    // Update addresses
+    const pickupEl = document.querySelector('.info-item:first-child .info-value');
+    const deliveryEl = document.querySelector('.info-item:last-child .info-value');
+    if (pickupEl) pickupEl.textContent = trackingData.pickup_address || 'N/A';
+    if (deliveryEl) deliveryEl.textContent = trackingData.delivery_address || 'N/A';
+
+    // Update status timeline
+    updateStatusTimeline(trackingData.status_history || []);
+
+    // Update estimated delivery
+    updateEstimatedDelivery(trackingData.created_at);
+}
+
+// Update status timeline with real data
+function updateStatusTimeline(statusHistory) {
+    const timelineEl = document.querySelector('.status-timeline');
+    if (!timelineEl || !statusHistory.length) return;
+
+    // Clear existing timeline
+    timelineEl.innerHTML = '';
+
+    // Add status history items
+    statusHistory.forEach((status, index) => {
+        const timelineItem = document.createElement('div');
+        timelineItem.className = 'timeline-item active';
+        
+        const statusDate = new Date(status.timestamp);
+        const formattedDate = statusDate.toLocaleDateString();
+        const formattedTime = statusDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        timelineItem.innerHTML = `
+            <div class="timeline-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <div class="timeline-content">
+                <h4>${status.status}</h4>
+                <p class="timeline-time">${formattedDate} at ${formattedTime}</p>
+                ${status.location ? `<p class="timeline-location">${status.location}</p>` : ''}
+            </div>
+        `;
+
+        timelineEl.appendChild(timelineItem);
+    });
+
+    // If no status history, show default
+    if (statusHistory.length === 0) {
+        timelineEl.innerHTML = `
+            <div class="timeline-item active">
+                <div class="timeline-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>Order Created</h4>
+                    <p class="timeline-time">Order has been created and is being processed</p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// Update estimated delivery based on order creation date
+function updateEstimatedDelivery(createdAt) {
+    const deliveryInfoEl = document.querySelector('.delivery-info');
+    if (!deliveryInfoEl || !createdAt) return;
+
+    const orderDate = new Date(createdAt);
+    const estimatedDate = new Date(orderDate.getTime() + (24 * 60 * 60 * 1000)); // Add 1 day
+    
+    const dateOptions = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    
+    const timeOptions = {
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+
+    const formattedDate = estimatedDate.toLocaleDateString('en-US', dateOptions);
+    const formattedTime = estimatedDate.toLocaleTimeString('en-US', timeOptions);
+
+    // Update the delivery info content
+    const deliveryDateEl = deliveryInfoEl.querySelector('.delivery-date');
+    const deliveryTimeEl = deliveryInfoEl.querySelector('.delivery-time');
+    
+    if (deliveryDateEl) {
+        deliveryDateEl.textContent = formattedDate;
+    }
+    
+    if (deliveryTimeEl) {
+        deliveryTimeEl.textContent = `by ${formattedTime}`;
+    }
+}

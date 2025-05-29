@@ -72,11 +72,9 @@ body.login-page-background {
     background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white background */
     padding: 30px 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);    width: 100%;
     max-width: 500px; /* Max width of the form area */
     margin-left: 5%; /* Push from the left edge */
-    margin: 0 auto;
 }
 
 .login-main-title {

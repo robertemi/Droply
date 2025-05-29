@@ -13,6 +13,7 @@ function initApp() {
 document.addEventListener('DOMContentLoaded', () => {
     initApp();
     initializeTheme();
+    initializeMobileMenu();
 });
 
 function initializeTheme() {
@@ -81,6 +82,74 @@ function initializeTheme() {
         if (savedTheme) {
             applyTheme(savedTheme);
         }
+    }
+}
+
+// Mobile menu initialization
+function initializeMobileMenu() {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+    
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    body.appendChild(overlay);
+    
+    if (mobileMenuToggle && navMenu) {
+        // Toggle mobile menu
+        mobileMenuToggle.addEventListener('click', () => {
+            toggleMobileMenu();
+        });
+        
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            closeMobileMenu();
+        });
+        
+        // Close menu when clicking nav links
+        const navLinks = navMenu.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+    }
+    
+    function toggleMobileMenu() {
+        mobileMenuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        overlay.classList.toggle('active');
+        body.classList.toggle('menu-open');
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+            body.style.overflow = 'hidden';
+        } else {
+            body.style.overflow = '';
+        }
+    }
+    
+    function closeMobileMenu() {
+        mobileMenuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('menu-open');
+        body.style.overflow = '';
     }
 }
 
