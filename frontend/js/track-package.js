@@ -346,10 +346,7 @@ async function fetchTrackingData(trackingNumber) {
     
     try {
         const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+            method: 'GET'
         });
 
         console.log('Response status:', response.status);
@@ -391,8 +388,8 @@ function populateTrackingResults(trackingData) {
     }
 
     // Update addresses
-    const pickupEl = document.querySelector('.info-item:first-child .info-value');
-    const deliveryEl = document.querySelector('.info-item:last-child .info-value');
+    const pickupEl = document.getElementById('pickup-address');
+    const deliveryEl = document.getElementById('delivery-address');
     if (pickupEl) pickupEl.textContent = trackingData.pickup_address || 'N/A';
     if (deliveryEl) deliveryEl.textContent = trackingData.delivery_address || 'N/A';
 

@@ -228,7 +228,7 @@ if (companyRegisterForm) {
             localStorage.setItem('vehicleType', vehicleType);
             
             // If integrating with backend API
-            const url = 'http://127.0.0.1:5000/api/couriers';
+            const url = 'https://droply-backend.onrender.com/api/couriers';
             fetch(url, {
                 method: 'POST',
                 headers: {

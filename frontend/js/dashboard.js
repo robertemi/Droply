@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const orderId = e.target.dataset.orderId;
                         if (confirm('Are you sure you want to delete this order?')) {
                             try {
-                                const res = await fetch(`http://127.0.0.1:5000/api/orders/delete_order/${orderId}`, {
+                                const res = await fetch(`https://droply-backend.onrender.com/api/orders/delete_order/${orderId}`, {
                                     method: 'DELETE'
                                 });
                                 if (res.ok) {
@@ -300,97 +300,131 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function populateDelivererDashboard() {
-        const availableOrdersList = document.getElementById('available-orders-list');
-        const inventoryList = document.getElementById('deliverer-inventory-list');
-        const balanceEl = document.getElementById('deliverer-balance');
+    const availableOrdersList = document.getElementById('available-orders-list');
+    const inventoryList = document.getElementById('deliverer-inventory-list');
+    const balanceEl = document.getElementById('deliverer-balance');
 
-        const courierId = localStorage.getItem('courier_id');
-        if (courierId && inventoryList) {
-            try {
-                const response = await fetch(`http://127.0.0.1:5000/api/orders/assigned_orders?courier_id=${courierId}`);
-                const data = await response.json();
-                const assignedOrders = Array.isArray(data) ? data : data.orders;
-
-                if (Array.isArray(assignedOrders) && assignedOrders.length > 0) {
-                    inventoryList.innerHTML = '<ul>' + assignedOrders.map(order =>
-                        `<li>
-                            Order # From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
-                            (AWB: <strong>${order.awb || 'N/A'}</strong>)
-                            (Status: ${order.status})
-                        </li>`
-                    ).join('') + '</ul>';
-                } else {
-                    inventoryList.innerHTML = '<p>No orders accepted yet.</p>';
-                }
-            } catch (err) {
-                inventoryList.innerHTML = '<p>Error loading assigned orders.</p>';
-            }
-        }
-
+    const courierId = localStorage.getItem('courier_id');
+    if (courierId && inventoryList) {
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/orders/unassigned');
-            const availableOrders = await response.json();
+            const response = await fetch(`https://droply-backend.onrender.com/api/orders/assigned_orders?courier_id=${courierId}`);
+            const data = await response.json();
+            const assignedOrders = Array.isArray(data) ? data : data.orders;
 
-            if (Array.isArray(availableOrders) && availableOrdersList) {
-                availableOrdersList.innerHTML = '<ul>' + availableOrders.map(order =>
+            if (Array.isArray(assignedOrders) && assignedOrders.length > 0) {
+                inventoryList.innerHTML = '<ul>' + assignedOrders.map(order =>
                     `<li>
-                        From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
-                        (Created: ${order.created_at})
-                        <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
+                        Order # From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                        (AWB: <strong>${order.awb || 'N/A'}</strong>)
+                        (Status: ${order.status})
+                        <button class="btn-unassign-order" data-order-id="${order.order_id}">Unassign</button>
                     </li>`
                 ).join('') + '</ul>';
 
-                availableOrdersList.querySelectorAll('.btn-accept-order').forEach(button => {
+                // Add event listeners for unassign buttons
+                inventoryList.querySelectorAll('.btn-unassign-order').forEach(button => {
                     button.addEventListener('click', async (e) => {
                         const orderId = e.target.dataset.orderId;
-
-                        const courierId = localStorage.getItem('courier_id');
                         if (!courierId) {
                             alert('Courier ID not found. Please log in again.');
                             return;
                         }
-                        const res = await fetch('http://127.0.0.1:5000/api/orders/assign_courier', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                order_id: Number(orderId),
-                                courier_id: Number(courierId),
-                            })
-                        });
+                        if (!confirm('Are you sure you want to unassign this order?')) return;
 
-                        if (!res.ok) {
-                            alert('Failed to assign order.');
-                            return;
-                        }
-
-                        alert(`Order ${orderId} accepted!`);
-                        e.target.closest('li').remove();
-
-                        const acceptedOrder = availableOrders.find(o => o.order_id == orderId);
-                        if (acceptedOrder && inventoryList) {
-                            const inventoryItem = document.createElement('li');
-                            inventoryItem.textContent = `Order #${acceptedOrder.order_id} - Status: Assigned`;
-
-                            if (inventoryList.querySelector('p')) {
-                                inventoryList.innerHTML = '<ul></ul>';
+                        try {
+                            // Use the correct backend endpoint
+                            const res = await fetch(`https://droply-backend.onrender.com/api/orders/unassign_courier`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    order_id: Number(orderId)
+                                })
+                            });
+                            if (res.ok) {
+                                alert('Order unassigned.');
+                                e.target.closest('li').remove();
+                            } else {
+                                const err = await res.json();
+                                alert('Failed to unassign order: ' + (err.error || 'Unknown error'));
                             }
-                            inventoryList.querySelector('ul')?.appendChild(inventoryItem);
+                        } catch (err) {
+                            alert('Error unassigning order.');
                         }
                     });
                 });
+            } else {
+                inventoryList.innerHTML = '<p>No orders accepted yet.</p>';
             }
-
-            if (balanceEl) {
-                const earnings = 0; // Placeholder for now
-                balanceEl.textContent = `$${earnings.toFixed(2)}`;
-            }
-        } catch (error) {
-            console.error('Failed to fetch available orders:', error);
-            if (availableOrdersList) {
-                availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
-            }
+        } catch (err) {
+            inventoryList.innerHTML = '<p>Error loading assigned orders.</p>';
         }
     }
+
+    try {
+        const response = await fetch('https://droply-backend.onrender.com/api/orders/unassigned');
+        const availableOrders = await response.json();
+
+        if (Array.isArray(availableOrders) && availableOrdersList) {
+            availableOrdersList.innerHTML = '<ul>' + availableOrders.map(order =>
+                `<li>
+                    From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                    (Created: ${order.created_at})
+                    <button class="btn-accept-order" data-order-id="${order.order_id}" data-company-id="${order.company_id}">Accept</button>
+                </li>`
+            ).join('') + '</ul>';
+
+            availableOrdersList.querySelectorAll('.btn-accept-order').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const orderId = e.target.dataset.orderId;
+                    const courierId = localStorage.getItem('courier_id');
+                    if (!courierId) {
+                        alert('Courier ID not found. Please log in again.');
+                        return;
+                    }
+                    const res = await fetch('https://droply-backend.onrender.com/api/orders/assign_courier', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            order_id: Number(orderId),
+                            courier_id: Number(courierId),
+                        })
+                    });
+
+                    if (!res.ok) {
+                        alert('Failed to assign order.');
+                        return;
+                    }
+
+                    alert(`Order ${orderId} accepted!`);
+                    e.target.closest('li').remove();
+
+                    const acceptedOrder = availableOrders.find(o => o.order_id == orderId);
+                    if (acceptedOrder && inventoryList) {
+                        const inventoryItem = document.createElement('li');
+                        inventoryItem.textContent = `Order #${acceptedOrder.order_id} - Status: Assigned`;
+
+                        if (inventoryList.querySelector('p')) {
+                            inventoryList.innerHTML = '<ul></ul>';
+                        }
+                        inventoryList.querySelector('ul')?.appendChild(inventoryItem);
+                    }
+                });
+            });
+        }
+
+        if (balanceEl) {
+            const earnings = 0; // Placeholder for now
+            balanceEl.textContent = `$${earnings.toFixed(2)}`;
+        }
+    } catch (error) {
+        console.error('Failed to fetch available orders:', error);
+        if (availableOrdersList) {
+            availableOrdersList.innerHTML = '<p>Error loading orders.</p>';
+        }
+    }
+}
 
     // Hamburger menu toggle
     if (hamburgerMenu && sidebar) {
@@ -436,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/orders', {
+                const response = await fetch('https://droply-backend.onrender.com/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
