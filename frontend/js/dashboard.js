@@ -261,6 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     `<li>
                         From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
                         (Created: ${order.created_at})
+                        <span>Status: <strong>${order.status || 'N/A'}</strong></span>
                         <button class="btn-delete-order" data-order-id="${order.order_id}">Delete</button>
                     </li>`
                 ).join('') + '</ul>';
@@ -302,6 +303,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const availableOrdersList = document.getElementById('available-orders-list');
         const inventoryList = document.getElementById('deliverer-inventory-list');
         const balanceEl = document.getElementById('deliverer-balance');
+
+        const courierId = localStorage.getItem('courier_id');
+        if (courierId && inventoryList) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/api/orders/assigned_orders?courier_id=${courierId}`);
+                const data = await response.json();
+                const assignedOrders = Array.isArray(data) ? data : data.orders;
+
+                if (Array.isArray(assignedOrders) && assignedOrders.length > 0) {
+                    inventoryList.innerHTML = '<ul>' + assignedOrders.map(order =>
+                        `<li>
+                            Order # From <strong>${order.pickup_address}</strong> to <strong>${order.delivery_address}</strong>
+                            (AWB: <strong>${order.awb || 'N/A'}</strong>)
+                            (Status: ${order.status})
+                        </li>`
+                    ).join('') + '</ul>';
+                } else {
+                    inventoryList.innerHTML = '<p>No orders accepted yet.</p>';
+                }
+            } catch (err) {
+                inventoryList.innerHTML = '<p>Error loading assigned orders.</p>';
+            }
+        }
 
         try {
             const response = await fetch('http://127.0.0.1:5000/api/orders/unassigned');
@@ -392,7 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CREATE ORDER BUTTON LOGIC ---
     const showCreateOrderBtn = document.getElementById('show-create-order-form');
     const createOrderForm = document.getElementById('create-order-form');
-    const companyIdInput = document.getElementById('company-id');
     const pickupInput = document.getElementById('pickup-address');
     const deliveryInput = document.getElementById('delivery-address');
 
@@ -403,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         createOrderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const companyId = companyIdInput.value.trim();
+            const companyId = localStorage.getItem('company_id');
             const pickup_address = pickupInput.value.trim();
             const delivery_address = deliveryInput.value.trim();
 
