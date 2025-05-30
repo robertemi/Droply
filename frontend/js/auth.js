@@ -261,24 +261,17 @@ if (companyRegisterForm) {
     // Dynamic auth links in header (e.g., on login/register pages themselves)
     const authNavLinksContainer = document.querySelector('header nav ul'); // Generic selector
     if (authNavLinksContainer) {
-        const isLoggedIn = !!localStorage.getItem('isLoggedIn');
         authNavLinksContainer.innerHTML = ''; // Clear existing
 
-        if (isLoggedIn) {
-            const dashboardLink = document.createElement('li');
-            dashboardLink.innerHTML = '<a href="dashboard.html">Dashboard</a>';
-            authNavLinksContainer.appendChild(dashboardLink);
-            // A logout on these pages might be less common, but can be added if needed
-        } else {
-            if (window.location.pathname.includes('login.html')) {
-                const registerLink = document.createElement('li');
-                registerLink.innerHTML = '<a href="register.html">Register</a>';
-                authNavLinksContainer.appendChild(registerLink);
-            } else if (window.location.pathname.includes('register.html')) {
-                const loginLink = document.createElement('li');
-                loginLink.innerHTML = '<a href="login.html">Login</a>';
-                authNavLinksContainer.appendChild(loginLink);
-            }
+        // Only show Register on login page, and Login on register page
+        if (window.location.pathname.includes('login.html')) {
+            const registerLink = document.createElement('li');
+            registerLink.innerHTML = '<a href="register.html">Register</a>';
+            authNavLinksContainer.appendChild(registerLink);
+        } else if (window.location.pathname.includes('register.html')) {
+            const loginLink = document.createElement('li');
+            loginLink.innerHTML = '<a href="login.html">Login</a>';
+            authNavLinksContainer.appendChild(loginLink);
         }
     }
 });

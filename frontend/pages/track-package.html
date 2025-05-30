@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Track your Droply package in real-time and get accurate delivery updates.">
-    <title>Track Package - Droply | Real-Time Package Tracking</title>
+    <title>Track Order - Droply | Real-Time Order Tracking</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/transitions.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -30,7 +30,7 @@
                         <li><a href="../index.html">Home</a></li>
                         <li><a href="how-it-works.html">How It Works</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="track-package.html" class="active">Track Package</a></li>
+                        <li><a href="track-package.html" class="active">Track Order</a></li>
                     </ul>
                     <div class="header-controls">
                         <div class="auth-buttons">
@@ -50,7 +50,7 @@
         <!-- Hero section -->
         <section class="tracking-hero">
             <div class="container">
-                <h1>Track Your Package</h1>
+                <h1>Track Your Order</h1>
                 <p class="subtitle">Get real-time updates on your delivery status</p>
                 
                 <div class="tracking-form-container">
@@ -59,7 +59,7 @@
                             <label for="tracking-number">Enter Tracking Number</label>
                             <input type="text" id="tracking-number" placeholder="e.g. DRP-12345678-RO" required>
                         </div>
-                        <button type="submit" class="button primary-button">Track Package</button>
+                        <button type="submit" class="button primary-button">Track Order</button>
                     </form>
                 </div>
             </div>
@@ -67,7 +67,7 @@
         <section class="tracking-result hidden" id="tracking-result">
             <div class="container">
                 <div class="package-info">
-                    <h2>Package Status</h2>
+                    <h2>Order Status</h2>
                     <div class="package-details">
                         <div class="detail-item">
                             <span class="detail-label">Tracking Number:</span>
@@ -140,7 +140,7 @@
                 </div>
                 
                 <div class="tracking-map-container">
-                    <h3>Live Package Location</h3>
+                    <h3>Live Order Location</h3>
                     <div id="tracking-map" class="tracking-map"></div>
                 </div>
                 
@@ -154,7 +154,7 @@
                             </div>
                             <div class="update-content">
                                 <h4>In Transit</h4>
-                                <p>Package is in transit to destination</p>
+                                <p>Order is in transit to destination</p>
                                 <p class="location">Brașov Sorting Facility, Romania</p>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                             </div>
                             <div class="update-content">
                                 <h4>Departed Facility</h4>
-                                <p>Package has left the sorting facility</p>
+                                <p>Order has left the sorting facility</p>
                                 <p class="location">Bucharest Distribution Center, Romania</p>
                             </div>
                         </div>
@@ -175,8 +175,8 @@
                                 <span class="time">10:15</span>
                             </div>
                             <div class="update-content">
-                                <h4>Package Processed</h4>
-                                <p>Package has been processed and is ready for shipping</p>
+                                <h4>Order Processed</h4>
+                                <p>Order has been processed and is ready for shipping</p>
                                 <p class="location">Bucharest Distribution Center, Romania</p>
                             </div>
                         </div>
@@ -193,8 +193,8 @@
             <div class="container">
                 <div class="no-results-content">
                     <i class="fas fa-search"></i>
-                    <h2>No Package Found</h2>
-                    <p>We couldn't find any package with the tracking number provided. Please check the number and try again.</p>
+                    <h2>No Order Found</h2>
+                    <p>We couldn't find any order with the tracking number provided. Please check the number and try again.</p>
                     <button id="btn-try-again" class="button primary-button">Try Again</button>
                 </div>
                 <div class="error-container">
@@ -257,18 +257,18 @@
                     <div class="accordion-item">
                         <div class="accordion-header">Can I change the delivery address after shipping?</div>
                         <div class="accordion-content">
-                            <p>Yes, for packages that haven't yet been dispatched for final delivery, you can request an address change. Log into your account or contact our customer support team with your tracking number to request this change. Note that additional fees may apply depending on the new destination.</p>
+                            <p>Yes, for orders that haven't yet been dispatched for final delivery, you can request an address change. Log into your account or contact our customer support team with your tracking number to request this change. Note that additional fees may apply depending on the new destination.</p>
                         </div>
                     </div>
                     
                     <div class="accordion-item">
                         <div class="accordion-header">What do the different tracking statuses mean?</div>
                         <div class="accordion-content">
-                            <p><strong>Package Processed</strong>: Your package has been received and entered into our system.<br>
-                            <strong>Departed Facility</strong>: Your package has left our distribution center.<br>
-                            <strong>In Transit</strong>: Your package is on its way to the destination.<br>
-                            <strong>Out for Delivery</strong>: Your package is on the delivery vehicle for final delivery.<br>
-                            <strong>Delivered</strong>: Your package has been delivered successfully.</p>
+                            <p><strong>Order Processed</strong>: Your order has been received and entered into our system.<br>
+                            <strong>Departed Facility</strong>: Your order has left our distribution center.<br>
+                            <strong>In Transit</strong>: Your order is on its way to the destination.<br>
+                            <strong>Out for Delivery</strong>: Your order is on the delivery vehicle for final delivery.<br>
+                            <strong>Delivered</strong>: Your order has been delivered successfully.</p>
                         </div>
                     </div>
                 </div>

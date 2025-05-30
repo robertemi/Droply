@@ -568,3 +568,25 @@ footer {
         margin-top: 10px;
     }
 }
+
+/* Mobile: Hide theme toggle and nav, show mobile logout button */
+@media (max-width: 768px) {
+    #theme-toggle-button,
+    .dashboard-nav {
+        display: none !important;
+    }
+    #mobile-logout-btn {
+        display: block !important;
+        background: #d9534f;
+        color: #fff;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 4px;
+        margin-left: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+}
+#mobile-logout-btn {
+    display: none; /* Hide by default, show on mobile */
+}
