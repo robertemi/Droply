@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
     const currentYear = document.getElementById('current-year');
 
+
     if (currentYear) {
         currentYear.textContent = new Date().getFullYear();
     }
@@ -447,6 +448,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+    if (mobileLogoutBtn) {
+        mobileLogoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            // Remove other session data if needed
+            window.location.href = 'how-it-works.html';
+        });
+    }
+
     // --- CREATE ORDER BUTTON LOGIC ---
     const showCreateOrderBtn = document.getElementById('show-create-order-form');
     const createOrderForm = document.getElementById('create-order-form');
@@ -497,3 +509,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
